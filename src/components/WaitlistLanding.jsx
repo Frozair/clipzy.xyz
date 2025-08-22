@@ -32,39 +32,16 @@ export default function WaitlistLanding() {
   }
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-white text-neutral-900 antialiased dark:bg-neutral-950 dark:text-neutral-100">
+    <div className="relative h-screen overflow-hidden bg-white text-neutral-900 antialiased dark:bg-neutral-950 dark:text-neutral-100 flex flex-col">
       {/* Ambient background accents */}
       <div aria-hidden className="pointer-events-none absolute -top-40 -right-40 h-[28rem] w-[28rem] rounded-full bg-[conic-gradient(from_180deg_at_50%_50%,rgba(145,70,255,.35),rgba(236,72,153,.25),rgba(56,189,248,.2),transparent_70%)] blur-3xl" />
       <div aria-hidden className="pointer-events-none absolute -bottom-48 -left-48 h-[26rem] w-[26rem] rounded-full bg-[radial-gradient(circle_at_center,rgba(56,189,248,.25),transparent_60%)] blur-2xl" />
-      {/* Subtle grid with radial mask */}
       <div aria-hidden className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,rgba(120,120,120,0.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(120,120,120,0.08)_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_at_center,black,transparent_70%)]" />
 
-      {/* Header */}
-      <header className="sticky top-0 z-20 backdrop-blur supports-[backdrop-filter]:bg-white/50 dark:supports-[backdrop-filter]:bg-neutral-950/40 border-b border-neutral-200/60 dark:border-neutral-800/60">
-        <div className="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="h-6 w-6 rounded-lg bg-gradient-to-br from-fuchsia-500 to-sky-500" />
-            <span className="font-semibold tracking-tight">Clipzy</span>
-          </div>
-          <nav className="hidden sm:flex items-center gap-6 text-sm text-neutral-600 dark:text-neutral-300">
-            <a href="#preview" className="hover:text-neutral-900 dark:hover:text-white">Preview</a>
-            <a href="#join" className="hover:text-neutral-900 dark:hover:text-white">Join waitlist</a>
-            <button
-              onClick={toggleDarkMode}
-              className="p-2 rounded-lg hover:bg-neutral-200/60 dark:hover:bg-neutral-800/60 transition-colors"
-              aria-label="Toggle dark mode"
-            >
-              {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-            </button>
-          </nav>
-        </div>
-      </header>
-
       {/* Hero */}
-      <section className="relative mx-auto max-w-6xl px-4 pt-16 pb-8" id="hero">
-        {/* soft card to cut the black */}
-        <div className="rounded-3xl border border-neutral-200/60 dark:border-neutral-800/70 bg-white/70 dark:bg-neutral-900/60 backdrop-blur-sm p-6 sm:p-10">
-          <div className="grid lg:grid-cols-2 gap-10 items-center">
+      <section className="relative mx-auto max-w-6xl px-4 flex-1 flex items-center" id="hero">
+        <div className="w-full rounded-3xl border border-neutral-200/60 dark:border-neutral-800/70 bg-white/70 dark:bg-neutral-900/60 backdrop-blur-sm p-6 sm:p-10 h-full flex items-center">
+          <div className="grid lg:grid-cols-2 gap-10 items-center w-full">
             <div>
               <div className="inline-flex items-center gap-2 rounded-full border border-neutral-200/70 dark:border-neutral-800 bg-white/70 dark:bg-neutral-950/40 px-3 py-1 text-xs text-neutral-600 dark:text-neutral-300">
                 <span className="h-2 w-2 rounded-full bg-[#9146FF]" />
@@ -78,14 +55,12 @@ export default function WaitlistLanding() {
                 Clipzy helps <span className="text-[#9146FF] font-medium">Twitch</span> creators collect, trim, and export clips fast—so you can post more and get back to streaming.
               </p>
 
-              {/* Platform badges */}
               <div className="mt-6 flex items-center gap-3 text-xs text-neutral-600 dark:text-neutral-400">
                 <PlatformBadge icon={<Apple className="h-3.5 w-3.5" />} label="iOS" note="Early access" />
                 <PlatformBadge icon={<Play className="h-3.5 w-3.5" />} label="Android" note="Early access" />
                 <PlatformBadge icon={<MonitorSmartphone className="h-3.5 w-3.5" />} label="macOS" note="Coming soon" />
               </div>
 
-              {/* Waitlist form */}
               <div className="mt-8" id="join">
                 <div className="rounded-2xl border border-neutral-200/70 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/70 shadow-sm p-3 sm:p-4">
                   {submitted ? (
@@ -138,7 +113,6 @@ export default function WaitlistLanding() {
               </div>
             </div>
 
-            {/* App Preview */}
             <div id="preview" className="relative">
               <PhonePreview />
             </div>
@@ -146,8 +120,7 @@ export default function WaitlistLanding() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="mx-auto max-w-6xl px-4 pb-12 pt-6 border-t border-neutral-200/60 dark:border-neutral-800/60 text-sm text-neutral-500 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+      <footer className="mx-auto max-w-6xl px-4 pb-6 pt-4 border-t border-neutral-200/60 dark:border-neutral-800/60 text-sm text-neutral-500 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
         <p>© {new Date().getFullYear()} Clipzy. All rights reserved.</p>
         <p className="opacity-80">Built for streamers who create.</p>
       </footer>
