@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="dark">
+<html lang="en" class="dark" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
@@ -7,8 +7,16 @@
     <title>Clipzy - Manage your stream clips, on your phone</title>
     <meta name="description" content="Clipzy helps Twitch creators collect, trim, and export clips fast—so you can post more and get back to streaming." />
     <script>
-      // Force dark mode on page load
+      // Force dark mode on page load and prevent system preference override
       document.documentElement.classList.add('dark');
+      document.documentElement.setAttribute('data-theme', 'dark');
+      
+      // Override any system preference
+      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+        // Force dark mode even if system prefers light
+        document.documentElement.classList.remove('light');
+        document.documentElement.classList.add('dark');
+      }
     </script>
   </head>
   <body>

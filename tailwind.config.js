@@ -8,6 +8,34 @@ export default {
   theme: {
     extend: {
       colors: {
+        clipzy: {
+          // Deep indigo/dark purple backgrounds
+          dark: '#0A0F1C',
+          darker: '#050A14',
+          // Vibrant purple accents
+          purple: '#9146FF',
+          purpleLight: '#A855F7',
+          // Bright cyan/blue highlights
+          cyan: '#00D4FF',
+          cyanLight: '#22BAD8',
+          // Pure black for UI elements
+          black: '#000000',
+          // White and neutral variations
+          white: '#FFFFFF',
+          gray: {
+            50: '#F9FAFB',
+            100: '#F3F4F6',
+            200: '#E5E7EB',
+            300: '#D1D5DB',
+            400: '#9CA3AF',
+            500: '#6B7280',
+            600: '#4B5563',
+            700: '#374151',
+            800: '#1F2937',
+            900: '#111827',
+            950: '#030712',
+          }
+        },
         neutral: {
           50: '#fafafa',
           100: '#f5f5f5',

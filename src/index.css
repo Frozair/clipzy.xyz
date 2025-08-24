@@ -7,9 +7,27 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Dark mode support */
+/* Force dark mode regardless of system preference */
+html,
+html[data-theme="dark"],
 html.dark {
   color-scheme: dark;
+  background-color: #0A0F1C;
+  color: #FFFFFF;
+}
+
+/* Override any light mode styles */
+html[data-theme="light"],
+html.light {
+  color-scheme: dark !important;
+  background-color: #0A0F1C !important;
+  color: #FFFFFF !important;
+}
+
+/* Ensure body also follows dark theme */
+body {
+  background-color: #0A0F1C;
+  color: #FFFFFF;
 }
 
 /* Custom scrollbar for webkit browsers */
@@ -37,6 +55,7 @@ html.dark {
 }
 
 /* Dark mode focus styles */
-.dark *:focus {
+.dark *:focus,
+html[data-theme="dark"] *:focus {
   outline-color: rgba(147, 197, 253, 0.5);
 }
