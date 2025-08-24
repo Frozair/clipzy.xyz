@@ -128,7 +128,7 @@ function HeroContent({ email, submitted, error, onEmailChange, onSubmit }) {
       <div className="flex justify-center lg:justify-start mb-6">
         <div className="flex items-center gap-3">
           <img 
-            src="/src/assets/clipzy_icon_dark.svg" 
+            src="/clipzy_icon_dark.svg" 
             alt="Clipzy Logo" 
             className="h-16 w-16 lg:h-20 lg:w-20"
           />
