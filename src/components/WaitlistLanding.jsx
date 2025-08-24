@@ -124,6 +124,18 @@ function BackgroundAccents() {
 function HeroContent({ email, submitted, error, onEmailChange, onSubmit }) {
   return (
     <div>
+      {/* Clipzy Logo */}
+      <div className="flex justify-center lg:justify-start mb-6">
+        <div className="flex items-center gap-3">
+          <img 
+            src="/src/assets/clipzy_icon_dark.svg" 
+            alt="Clipzy Logo" 
+            className="h-16 w-16 lg:h-20 lg:w-20"
+          />
+          <span className="text-4xl lg:text-5xl font-bold text-clipzy-white">Clipzy</span>
+        </div>
+      </div>
+      
       <div className="flow lg:inline-flex items-center gap-2 rounded-full border border-clipzy-gray-800 bg-clipzy-black/40 px-3 py-1 text-xs text-clipzy-gray-300 mx-auto lg:mx-0 w-fit">
         <span className="h-2 w-2 rounded-full bg-clipzy-purple" />
         Built for <span className="font-medium text-clipzy-purple">Twitch</span> creators — <span className="font-medium text-[#52FC18]">Kick</span> support soon

@@ -1,0 +1,10 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="clipzyGrad" x1="0" y1="0" x2="1024" y2="1024" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#A875FF"/>
+      <stop offset="100%" stop-color="#45E0B2"/>
+    </linearGradient>
+  </defs>
+  <path d="M 724.13 724.13 A 300 300 0 1 1 724.13 299.87" stroke="url(#clipzyGrad)" stroke-width="150" stroke-linecap="round" fill="none"/>
+  <path d="M 552 512 L 472 442 L 472 582 Z" fill="url(#clipzyGrad)"/>
+</svg>
