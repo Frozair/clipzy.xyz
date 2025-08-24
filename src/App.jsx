@@ -1,5 +1,6 @@
-import WaitlistLanding from './components/WaitlistLanding'
-import { Analytics } from '@vercel/analytics/react'
+import React from 'react';
+import WaitlistLanding from './components/WaitlistLanding';
+import { Analytics } from '@vercel/analytics/react';
 
 function App() {
   return (
@@ -7,7 +8,7 @@ function App() {
       <WaitlistLanding />
       <Analytics />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
