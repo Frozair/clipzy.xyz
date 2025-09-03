@@ -2,9 +2,37 @@
 @tailwind components;
 @tailwind utilities;
 
+/* CSS Variables matching the new design */
+:root {
+  --bg: #06070C;
+  --ink: #F3F6FB;
+  --muted: #A7B0C6;
+  --panel: #0E0F1A;
+  --purple: #A875FF;
+  --teal: #45E0B2;
+  --ring: rgba(168,117,255,.35);
+}
+
 /* Base styles */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
 html {
   scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, Segoe UI, Roboto, Helvetica, Arial;
+  color: var(--ink);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Force dark mode regardless of system preference */
@@ -12,22 +40,38 @@ html,
 html[data-theme="dark"],
 html.dark {
   color-scheme: dark;
-  background-color: #0A0F1C;
-  color: #FFFFFF;
+  background-color: var(--bg);
+  color: var(--ink);
 }
 
 /* Override any light mode styles */
 html[data-theme="light"],
 html.light {
   color-scheme: dark !important;
-  background-color: #0A0F1C !important;
-  color: #FFFFFF !important;
+  background-color: var(--bg) !important;
+  color: var(--ink) !important;
 }
 
-/* Ensure body also follows dark theme */
-body {
-  background-color: #0A0F1C;
-  color: #FFFFFF;
+/* Shell container */
+.shell {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 24px 20px;
+}
+
+/* Background effects */
+.bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+.fx1 {
+  background: radial-gradient(800px 480px at 20% 10%, rgba(69,224,178,.12), transparent 65%);
+}
+
+.fx2 {
+  background: radial-gradient(1000px 560px at 95% 0%, rgba(168,117,255,.18), transparent 60%);
 }
 
 /* Custom scrollbar for webkit browsers */
@@ -50,12 +94,283 @@ body {
 
 /* Focus styles for better accessibility */
 *:focus {
-  outline: 2px solid rgba(59, 130, 246, 0.5);
+  outline: 2px solid var(--ring);
   outline-offset: 2px;
 }
 
-/* Dark mode focus styles */
-.dark *:focus,
-html[data-theme="dark"] *:focus {
-  outline-color: rgba(147, 197, 253, 0.5);
+/* Screen reader only */
+.sr-only {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* === Header and Brand === */
+.brand-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo {
+  width: 68px;
+  height: 68px;
+  filter: drop-shadow(0 0 30px rgba(168,117,255,.45));
+}
+
+.wordmark {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: .2px;
+  color: #C9B8FF;
+}
+
+.badges {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.pill {
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 999px;
+  padding: 8px 12px;
+  font-size: 12px;
+  color: #C7CCE0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #33D9A2;
+}
+
+.twitch {
+  background: #9146FF;
+}
+
+/* === Hero Section === */
+.hero {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 42px;
+  align-items: center;
+  padding-top: 8px;
+}
+
+@media (max-width: 980px) {
+  .hero {
+    grid-template-columns: 1fr;
+  }
+}
+
+.big {
+  margin: 0;
+  font-size: clamp(36px, 5.8vw, 64px);
+  line-height: 1.04;
+  letter-spacing: -.02em;
+  font-weight: 800;
+}
+
+.grad {
+  background: linear-gradient(90deg, var(--teal), var(--purple));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.sub {
+  color: var(--muted);
+  font-size: 18px;
+  max-width: 48ch;
+  margin: 14px 0 16px;
+}
+
+.chips {
+  display: flex;
+  gap: 10px;
+  margin: 12px 0 18px;
+  flex-wrap: wrap;
+}
+
+.chip {
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.10);
+  color: #DDE3F5;
+  padding: 8px 10px;
+  border-radius: 999px;
+  font-size: 13px;
+}
+
+/* === Form === */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 520px;
+}
+
+.form input {
+  width: 100%;
+  background: #0F1120;
+  color: var(--ink);
+  border-radius: 16px;
+  padding: 16px 16px;
+  border: 1px solid rgba(168,117,255,.35);
+  outline: none;
+  font-size: 16px;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.06), 0 0 0 6px rgba(168,117,255,.08);
+}
+
+.form input:focus {
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.08), 0 0 0 8px var(--ring);
+}
+
+.cta {
+  display: inline-block;
+  font-weight: 800;
+  color: #EDE6FF;
+  background: transparent;
+  border-radius: 16px;
+  padding: 16px 18px;
+  border: 1px solid rgba(168,117,255,.6);
+  box-shadow: 0 0 40px rgba(168,117,255,.25), inset 0 0 0 1px rgba(255,255,255,.12);
+  text-shadow: 0 0 22px rgba(168,117,255,.5);
+  cursor: pointer;
+}
+
+.cta:hover {
+  transform: translateY(-1px);
+}
+
+.cta:active {
+  transform: translateY(0);
+}
+
+.follow {
+  margin-top: 8px;
+  font-size: 14px;
+}
+
+.follow a {
+  color: var(--purple);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.follow a:hover {
+  text-decoration: underline;
+  color: var(--teal);
+}
+
+/* === Device Preview === */
+.right {
+  display: flex;
+  justify-content: center;
+}
+
+.device {
+  position: relative;  
+}
+
+.device .bezel {
+  position: absolute;
+  inset: 0;
+}
+
+.device .notch {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 18px;
+  background: #111;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.08);
+}
+
+.device img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  border-radius: 40px;
+  background: transparent;
+}
+
+/* === Features Section === */
+.features {
+  padding: 24px 20px 8px;
+}
+
+.grid3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+@media (max-width: 980px) {
+  .grid3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card {
+  background: #0F1324;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 18px;
+  padding: 18px 18px 16px;
+  box-shadow: 0 10px 40px rgba(0,0,0,.25), inset 0 0 0 1px rgba(168,117,255,.06);
+}
+
+.card h3 {
+  margin: 0 0 6px 0;
+  color: #E8ECF8;
+}
+
+.card p {
+  margin: 0;
+  color: #A7B0C6;
+}
+
+/* === FAQ Section === */
+.faq {
+  margin-top: 22px;
+}
+
+.faq details {
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+}
+
+.faq summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: #E8ECF8;
+}
+
+.faq p {
+  color: #A7B0C6;
+  margin: 10px 0 0;
+}
+
+/* === Footer === */
+.foot {
+  padding: 40px 20px;
+  color: #9BA3BA;
+  font-size: 14px;
+  text-align: left;
 }
