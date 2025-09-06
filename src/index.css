@@ -4,15 +4,15 @@
 
 /* CSS Variables matching the new app design */
 :root {
-  --bg: #0A0A0A;
+  --bg: #000000;
   --ink: #FFFFFF;
-  --muted: #B0B0B0;
-  --panel: #1A1A1A;
-  --purple: #A855F7;
+  --muted: #E0E0E0;
+  --panel: #111111;
+  --purple: #8B5CF6;
   --teal: #06B6D4;
-  --ring: rgba(168,85,247,.4);
-  --card-bg: #1A1A1A;
-  --border: rgba(255,255,255,.1);
+  --ring: rgba(139,92,246,.5);
+  --card-bg: #111111;
+  --border: rgba(255,255,255,.15);
 }
 
 /* Base styles */
@@ -69,11 +69,11 @@ html.light {
 }
 
 .fx1 {
-  background: radial-gradient(800px 480px at 20% 10%, rgba(168,85,247,.08), transparent 70%);
+  background: radial-gradient(800px 480px at 20% 10%, rgba(139,92,246,.15), transparent 70%);
 }
 
 .fx2 {
-  background: radial-gradient(1000px 560px at 80% 20%, rgba(6,182,212,.06), transparent 60%);
+  background: radial-gradient(1000px 560px at 80% 20%, rgba(6,182,212,.12), transparent 60%);
 }
 
 /* Custom scrollbar for webkit browsers */
@@ -185,10 +185,17 @@ html.light {
 }
 
 .grad {
-  background: linear-gradient(90deg, var(--teal), var(--purple));
+  background: linear-gradient(135deg, #06B6D4, #8B5CF6, #A855F7);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  background-size: 200% 200%;
+  animation: gradientShift 3s ease-in-out infinite;
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
 }
 
 .sub {
@@ -242,21 +249,22 @@ html.light {
 
 .cta {
   display: inline-block;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--ink);
-  background: var(--purple);
+  background: linear-gradient(135deg, #8B5CF6, #A855F7);
   border-radius: 12px;
   padding: 16px 24px;
   border: none;
   cursor: pointer;
   transition: all 0.2s ease;
   font-size: 16px;
+  box-shadow: 0 4px 16px rgba(139,92,246,.4);
 }
 
 .cta:hover {
-  background: #9333EA;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(168,85,247,.3);
+  background: linear-gradient(135deg, #7C3AED, #9333EA);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(139,92,246,.5);
 }
 
 .cta:active {
