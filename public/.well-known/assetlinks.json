@@ -1,0 +1,14 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "xyz.clipzy",
+      "sha256_cert_fingerprints": [
+        "E2:B9:0D:F2:5B:89:83:83:2D:74:CC:31:EE:4B:5D:A3:EB:AB:A2:AF:2E:DC:1E:8B:89:49:DD:58:8E:AC:14:30"
+      ]
+    }
+  }
+]
