@@ -1,0 +1,18 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appIDs": [
+          "UUF54J2RTP.xyz.clipzy"
+        ],
+        "components": [
+          {
+            "/": "/oauth/callback",
+            "comment": "Open the Twitch OAuth callback in Clipzy."
+          }
+        ]
+      }
+    ]
+  }
+}

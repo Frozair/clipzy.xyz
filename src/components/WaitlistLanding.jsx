@@ -155,8 +155,8 @@ export default function WaitlistLanding() {
             <article className="workflow-card workflow-featured">
               <div className="number">01</div>
               <h3>Review at thumb speed</h3>
-              <p>Keep, hide, or skip each clip. Changed your mind? Your decisions stay reversible.</p>
-              <ScreenshotFrame src="/app/review.webp" alt="Clipzy Feed showing a real Twitch clip with hide, keep, and skip actions" className="shot-review" />
+              <p>Keep or hide each clip. Changed your mind? Undo the latest decision right away.</p>
+              <ScreenshotFrame src="/app/review.webp" alt="Clipzy Feed showing a real Twitch clip with hide and keep actions" className="shot-review" />
             </article>
 
             <article className="workflow-card">
@@ -181,7 +181,7 @@ export default function WaitlistLanding() {
               <Feature icon={Play} title="Smooth playback" body="Preview clips in-app with the next moments ready to go." />
               <Feature icon={Download} title="Direct downloads" body="Save your own clips straight from Twitch to your device." />
               <Feature icon={Share2} title="Share anywhere" body="Send finished clips to your editor or social app of choice." />
-              <Feature icon={RotateCcw} title="Nothing is permanent" body="Undo review decisions and revisit hidden clips whenever you want." />
+              <Feature icon={RotateCcw} title="Quick corrections" body="Undo the latest review decision when your thumb moves faster than your brain." />
               <Feature icon={Lock} title="Your data stays yours" body="Decisions and collections live locally, partitioned by your account." />
               <Feature icon={MonitorSmartphone} title="Made for mobile" body="The same focused Clipzy experience on iPhone and Android." />
             </div>
@@ -262,6 +262,8 @@ export default function WaitlistLanding() {
         <p>Built for streamers who would rather stream.</p>
         <div>
           <a href="https://www.twitch.tv/fr0zair" target="_blank" rel="noreferrer">Follow the build</a>
+          <a href="/privacy/">Privacy</a>
+          <a href="/support/">Support</a>
           <span>© {new Date().getFullYear()} Clipzy</span>
         </div>
       </footer>
