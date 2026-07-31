@@ -3,9 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>Clipzy — Manage your stream clips</title>
-    <meta name="description" content="Collect, organize, and export stream clips fast so you can post more and get back to streaming." />
-    <meta property="og:image" content="/og-image.svg" />
+    <title>Clipzy — Tame your Twitch clip backlog</title>
+    <meta name="description" content="Review, organize, edit, and share your Twitch clips from your phone. Swipe to keep the best moments and turn your backlog into a content-ready library." />
+    <meta property="og:title" content="Clipzy — Your best clips, out of the backlog" />
+    <meta property="og:description" content="Review, organize, edit, and share your own Twitch clips from your phone." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://clipzy.xyz" />
+    <meta name="twitter:card" content="summary" />
     
     <!-- Favicon and app icons -->
     <link rel="icon" href="/favicon.ico" sizes="any">
@@ -13,23 +17,6 @@
     <link rel="icon" type="image/png" href="/icon-192.png" sizes="192x192">
     <link rel="icon" type="image/png" href="/icon-512.png" sizes="512x512">
     
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <script>
-      // Force dark mode on page load and prevent system preference override
-      document.documentElement.classList.add('dark');
-      document.documentElement.setAttribute('data-theme', 'dark');
-      
-      // Override any system preference
-      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-        // Force dark mode even if system prefers light
-        document.documentElement.classList.remove('light');
-        document.documentElement.classList.add('dark');
-      }
-    </script>
   </head>
   <body>
     <div id="root"></div>

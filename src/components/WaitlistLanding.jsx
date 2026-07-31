@@ -1,260 +1,361 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import {
-  Check,
-  Mail,
   ArrowRight,
+  Check,
+  ChevronDown,
+  Cloud,
+  Download,
+  Lock,
+  MonitorSmartphone,
+  Play,
+  RotateCcw,
+  Share2,
+  Sparkles,
+  Wand2,
 } from "lucide-react";
 
-// Constants
-const FORMSPARK_ENDPOINT = "https://api.formspark.io/QP5hsSTy1";
+const WAITLIST_ENDPOINT = "/api/waitlist";
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+const tabs = [
+  { id: "review", label: "Review" },
+  { id: "library", label: "Library" },
+  { id: "editor", label: "Editor" },
+];
+
+const faqItems = [
+  {
+    question: "Does Clipzy download anyone’s clips?",
+    answer:
+      "No. Clipzy is ownership-only by design. You sign in through Twitch and only see clips that belong to your own channel.",
+  },
+  {
+    question: "Where are my clips and decisions stored?",
+    answer:
+      "Your review decisions, collections, and clip metadata stay on your device. Clipzy streams video from Twitch and does not host or proxy your clips.",
+  },
+  {
+    question: "What devices will Clipzy support?",
+    answer:
+      "Clipzy is built for iPhone and Android. Desktop access is planned as part of Clipzy Pro.",
+  },
+  {
+    question: "When will Clipzy Pro launch?",
+    answer:
+      "Pro is still being built. Join the waitlist and we’ll share pricing and availability before it launches.",
+  },
+];
+
 export default function WaitlistLanding() {
+  const [activeTab, setActiveTab] = useState("review");
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  useEffect(() => {
-    // Apply consistent dark theme
-    document.documentElement.classList.add('dark');
-  }, []);
-
-  const validateEmail = (email) => {
-    return EMAIL_REGEX.test((email || "").trim());
-  };
-
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-    // Clear error when user starts typing
-    if (error) setError("");
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  async function handleSubmit(event) {
+    event.preventDefault();
     setError("");
 
-    if (!validateEmail(email)) {
-      return setError("Please enter a valid email.");
+    if (!EMAIL_REGEX.test(email.trim())) {
+      setError("Enter a valid email address.");
+      return;
     }
 
+    setIsSubmitting(true);
     try {
-      const response = await fetch(FORMSPARK_ENDPOINT, {
+      const response = await fetch(WAITLIST_ENDPOINT, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json",
-        },
-        body: JSON.stringify({
-          email: email.trim(),
-        }),
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({ email: email.trim(), attribution: getAttribution() }),
       });
-
-      if (response.ok) {
-        setSubmitted(true);
-        setEmail("");
-        console.log("Form submitted successfully to Formspark");
-      } else {
-        const errorText = await response.text();
-        console.error("Formspark HTTP error:", response.status, errorText);
-        throw new Error(`HTTP ${response.status}: ${errorText}`);
+      const result = await response.json().catch(() => null);
+      if (!response.ok || !result?.saved) {
+        throw new Error(result?.error || "Couldn’t join right now. Please try again.");
       }
-    } catch (err) {
-      console.error("Form submission error:", err);
-      
-      if (err.name === 'TypeError' && err.message.includes('Failed to fetch')) {
-        setError("Network error. Please check your connection and try again.");
-      } else if (err.message.includes('CORS')) {
-        setError("CORS error. Please contact support.");
-      } else {
-        setError(`Submission failed: ${err.message}`);
-      }
+      setSubmitted(true);
+      setEmail("");
+    } catch (submissionError) {
+      setError(submissionError.message || "Couldn’t join right now. Please try again.");
+    } finally {
+      setIsSubmitting(false);
     }
-  };
+  }
 
   return (
-    <div className="min-h-screen">
-      <BackgroundAccents />
-      
-      <header className="shell">
-        <div className="brand-row">
-          <img src="/logo.png" alt="" className="logo" />
-          <h1 className="wordmark">Clipzy</h1>
-        </div>
-        <div className="badges">
-          <span className="pill">
-            <span className="dot twitch"></span>
-            Built for Twitch
-          </span>
-          <span className="pill">
-            <span className="dot"></span>
-            Kick support soon
-          </span>
-        </div>
+    <div className="site">
+      <div className="ambient ambient-one" />
+      <div className="ambient ambient-two" />
+
+      <header className="nav shell">
+        <a className="brand" href="#top" aria-label="Clipzy home">
+          <img src="/logo.png" alt="" />
+          <span>Clipzy</span>
+        </a>
+        <nav aria-label="Primary navigation">
+          <a href="#features">Features</a>
+          <a href="#pro">Pro</a>
+          <a href="#faq">FAQ</a>
+        </nav>
+        <a className="nav-cta" href="#waitlist">Get early access</a>
       </header>
 
-      <main className="shell hero">
-        <section className="left">
-          <h2 className="big">
-            Manage your <span className="grad">stream clips</span> —<br />
-            on your phone.
-          </h2>
-          <p className="sub">Collect, organize, and export clips fast so you can post more and get back to streaming.</p>
-
-          <div className="chips">
-            <span className="chip">iOS</span>
-            <span className="chip">Android</span>
-            <span className="chip">macOS</span>
+      <main id="top">
+        <section className="hero shell">
+          <div className="hero-copy">
+            <div className="eyebrow"><span /> Built by a streamer, for streamers</div>
+            <h1>Your best clips shouldn’t get <em>lost in the backlog.</em></h1>
+            <p className="hero-lede">
+              Swipe through your Twitch clips, keep the moments that matter, then
+              organize, edit, and share them—all from your phone.
+            </p>
+            <div className="hero-actions">
+              <a className="button button-primary" href="#waitlist">
+                Join the waitlist <ArrowRight size={17} />
+              </a>
+              <a className="button button-quiet" href="#features">
+                See how it works <Play size={15} fill="currentColor" />
+              </a>
+            </div>
+            <div className="trust-row">
+              <span><Check size={15} /> Official Twitch sign-in</span>
+              <span><Check size={15} /> Local-first</span>
+              <span><Check size={15} /> iOS + Android</span>
+            </div>
           </div>
 
-          <WaitlistForm 
-            email={email}
-            submitted={submitted}
-            error={error}
-            onEmailChange={handleEmailChange}
-            onSubmit={handleSubmit}
-          />
+          <div className="hero-visual">
+            <div className="orbit orbit-one" />
+            <div className="orbit orbit-two" />
+            <ProductPreview activeTab={activeTab} setActiveTab={setActiveTab} />
+          </div>
+        </section>
 
-          <p className="follow">
-            <a href="https://www.twitch.tv/fr0zair" target="_blank" rel="noopener">Follow @frozair for updates</a>
+        <section className="proof-strip" aria-label="Clipzy workflow">
+          <div className="shell proof-inner">
+            <span>One thumb.</span><i />
+            <span>One decision.</span><i />
+            <span>One clean library.</span>
+          </div>
+        </section>
+
+        <section className="section shell" id="features">
+          <div className="section-heading">
+            <div>
+              <p className="kicker">The clip workflow Twitch never built</p>
+              <h2>From clip chaos to content-ready.</h2>
+            </div>
+            <p>
+              Clipzy turns reviewing clips into a fast, focused flow—so five spare
+              minutes can actually make a dent.
+            </p>
+          </div>
+
+          <div className="workflow">
+            <article className="workflow-card workflow-featured">
+              <div className="number">01</div>
+              <h3>Review at thumb speed</h3>
+              <p>Keep, hide, or skip each clip. Changed your mind? Your decisions stay reversible.</p>
+              <ScreenshotFrame src="/app/review.webp" alt="Clipzy Feed showing a real Twitch clip with hide, keep, and skip actions" className="shot-review" />
+            </article>
+
+            <article className="workflow-card">
+              <div className="number">02</div>
+              <h3>Find the clip you need</h3>
+              <p>Search your library, sort by newest, oldest, or popular, and filter by export status.</p>
+              <ScreenshotFrame src="/app/library.webp" alt="Clipzy Library showing search, sorting, export filters, and real saved clips" className="shot-library" />
+            </article>
+
+            <article className="workflow-card">
+              <div className="number">03</div>
+              <h3>Make it post-ready</h3>
+              <p>Trim, reframe for 9:16, 1:1, or 16:9, choose your portrait layout, then export and share.</p>
+              <ScreenshotFrame src="/app/editor.webp" alt="Clipzy Ready to post editor showing real format, layout, export allowance, and sharing controls" className="shot-editor" />
+            </article>
+          </div>
+        </section>
+
+        <section className="feature-band">
+          <div className="shell">
+            <div className="mini-grid">
+              <Feature icon={Play} title="Smooth playback" body="Preview clips in-app with the next moments ready to go." />
+              <Feature icon={Download} title="Direct downloads" body="Save your own clips straight from Twitch to your device." />
+              <Feature icon={Share2} title="Share anywhere" body="Send finished clips to your editor or social app of choice." />
+              <Feature icon={RotateCcw} title="Nothing is permanent" body="Undo review decisions and revisit hidden clips whenever you want." />
+              <Feature icon={Lock} title="Your data stays yours" body="Decisions and collections live locally, partitioned by your account." />
+              <Feature icon={MonitorSmartphone} title="Made for mobile" body="The same focused Clipzy experience on iPhone and Android." />
+            </div>
+          </div>
+        </section>
+
+        <section className="pro-section shell" id="pro">
+          <div className="pro-glow" />
+          <div className="pro-copy">
+            <span className="coming-soon">Coming soon</span>
+            <p className="pro-mark"><Sparkles size={18} /> CLIPZY <b>PRO</b></p>
+            <h2>Your content workflow, with the limits removed.</h2>
+            <p>
+              The free app handles the whole core loop. Pro is for creators ready
+              to move more clips across more screens.
+            </p>
+            <a className="button button-light" href="#waitlist">
+              Get Pro launch updates <ArrowRight size={17} />
+            </a>
+          </div>
+          <div className="pro-features">
+            <ProFeature icon={Wand2} title="Unlimited exports" body="Create and share without a monthly export cap." />
+            <ProFeature icon={Cloud} title="Cross-device sync" body="Keep your library and progress in step across devices." />
+            <ProFeature icon={MonitorSmartphone} title="Desktop access" body="Pick up your workflow on a bigger screen." />
+            <ProFeature icon={Sparkles} title="No ads" body="A completely uninterrupted Clipzy experience." />
+          </div>
+        </section>
+
+        <section className="privacy shell">
+          <div className="privacy-icon"><Lock /></div>
+          <div>
+            <p className="kicker">Ownership-only by design</p>
+            <h2>Your clips. Your library. No sketchy workarounds.</h2>
+          </div>
+          <p>
+            Clipzy uses official Twitch access to show only clips from your own
+            channel. We never host or proxy your video, and your local library
+            remains on your device.
           </p>
         </section>
 
-        <aside className="right">
-          <PhonePreview />
-        </aside>
+        <section className="faq-section shell" id="faq">
+          <div className="faq-intro">
+            <p className="kicker">Good questions</p>
+            <h2>Before you swipe.</h2>
+          </div>
+          <div className="faq-list">
+            {faqItems.map((item) => (
+              <details key={item.question}>
+                <summary>{item.question}<ChevronDown size={19} /></summary>
+                <p>{item.answer}</p>
+              </details>
+            ))}
+          </div>
+        </section>
+
+        <section className="waitlist shell" id="waitlist">
+          <div className="waitlist-inner">
+            <div>
+              <p className="kicker">Private beta</p>
+              <h2>Ready to tame the backlog?</h2>
+              <p>Join the waitlist for beta invites, product updates, and first access to Clipzy Pro.</p>
+            </div>
+            <WaitlistForm
+              email={email}
+              setEmail={setEmail}
+              submitted={submitted}
+              error={error}
+              isSubmitting={isSubmitting}
+              onSubmit={handleSubmit}
+            />
+          </div>
+        </section>
       </main>
 
-      <FeaturesSection />
-      <FAQSection />
-      <Footer />
+      <footer className="footer shell">
+        <a className="brand" href="#top"><img src="/logo.png" alt="" /><span>Clipzy</span></a>
+        <p>Built for streamers who would rather stream.</p>
+        <div>
+          <a href="https://www.twitch.tv/fr0zair" target="_blank" rel="noreferrer">Follow the build</a>
+          <span>© {new Date().getFullYear()} Clipzy</span>
+        </div>
+      </footer>
     </div>
   );
 }
 
-// Background accent components
-function BackgroundAccents() {
+function ProductPreview({ activeTab, setActiveTab }) {
+  const active = tabs.find((tab) => tab.id === activeTab) || tabs[0];
+
   return (
-    <>
-      <div className="bg fx1"></div>
-      <div className="bg fx2"></div>
-    </>
+    <div className="product-preview">
+      <div className="preview-tabs" role="tablist" aria-label="Real Clipzy app screenshots">
+        {tabs.map((tab) => (
+          <button
+            key={tab.id}
+            role="tab"
+            aria-selected={activeTab === tab.id}
+            onClick={() => setActiveTab(tab.id)}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+      <div className="phone real-phone">
+        <img
+          className="real-app-screen"
+          src={`/app/${active.id === "review" ? "review" : active.id}.webp`}
+          alt={`Current Clipzy ${active.label} screen running on Android`}
+        />
+      </div>
+      <p className="authentic-label"><Check size={13} /> Captured from the current Android app</p>
+    </div>
   );
 }
 
-// Waitlist form component
-function WaitlistForm({ email, submitted, error, onEmailChange, onSubmit }) {
+function ScreenshotFrame({ src, alt, className }) {
+  return (
+    <div className={`screenshot-frame ${className}`}>
+      <img src={src} alt={alt} loading="lazy" />
+    </div>
+  );
+}
+
+function Feature({ icon: Icon, title, body }) {
+  return <article className="mini-feature"><span><Icon /></span><h3>{title}</h3><p>{body}</p></article>;
+}
+
+function ProFeature({ icon: Icon, title, body }) {
+  return <article><span><Icon /></span><div><h3>{title}</h3><p>{body}</p></div></article>;
+}
+
+function WaitlistForm({ email, setEmail, submitted, error, isSubmitting, onSubmit }) {
   if (submitted) {
     return (
-      <div className="form">
-        <div style={{ 
-          background: 'rgba(255,255,255,.06)', 
-          border: '1px solid rgba(255,255,255,.10)', 
-          borderRadius: '16px', 
-          padding: '16px',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '12px'
-        }}>
-          <div style={{ 
-            width: '32px', 
-            height: '32px', 
-            borderRadius: '50%', 
-            background: 'rgba(69,224,178,.15)', 
-            color: 'var(--teal)', 
-            display: 'flex', 
-            alignItems: 'center', 
-            justifyContent: 'center' 
-          }}>
-            <Check size={16} />
-          </div>
-          <div>
-            <p style={{ margin: 0, fontWeight: 600, color: 'var(--ink)' }}>You're on the list!</p>
-            <p style={{ margin: 0, fontSize: '14px', color: 'var(--muted)' }}>We'll email you when invites roll out.</p>
-          </div>
-        </div>
+      <div className="success-message">
+        <span><Check /></span>
+        <div><strong>You’re on the list.</strong><p>We’ll be in touch when invites roll out.</p></div>
       </div>
     );
   }
 
   return (
-    <form className="form" onSubmit={onSubmit} noValidate>
-      <label className="sr-only" htmlFor="email">Email address</label>
-      <input 
-        id="email" 
-        name="email" 
-        type="email" 
-        value={email}
-        onChange={onEmailChange}
-        placeholder="Email address" 
-        required 
-        inputMode="email" 
-        autoComplete="email"
-      />
-      <button className="cta" type="submit">Join the waitlist</button>
-      {error && <div style={{ color: '#ff6b6b', fontSize: '14px', marginTop: '8px' }}>{error}</div>}
+    <form className="waitlist-form" onSubmit={onSubmit} noValidate>
+      <label htmlFor="email">Email address</label>
+      <div>
+        <input
+          id="email"
+          type="email"
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+          placeholder="you@channel.com"
+          autoComplete="email"
+          disabled={isSubmitting}
+        />
+        <button type="submit" disabled={isSubmitting}>
+          {isSubmitting ? "Joining…" : "Join the waitlist"} <ArrowRight size={16} />
+        </button>
+      </div>
+      {error && <p className="form-error" role="alert">{error}</p>}
+      <small>No spam. Just launch news and invites.</small>
     </form>
   );
 }
 
-// Phone preview component
-function PhonePreview() {
-  return (
-    <div className="device">
-      <div className="bezel"></div>
-      <div className="notch"></div>
-      <img src="/feed-mock.png" alt="Clipzy app preview" loading="eager" />
-      <div className="highlight"></div>
-    </div>
-  );
-}
-
-// Features section
-function FeaturesSection() {
-  return (
-    <section className="shell features">
-      <div className="grid3">
-        <article className="card">
-          <h3>Swipe, sort, save</h3>
-          <p>Fly through clips. Keep the bangers, archive the rest. One‑handed review with familiar gestures.</p>
-        </article>
-        <article className="card">
-          <h3>Auto‑import</h3>
-          <p>Connect your account; new clips just appear. No more hunting through dashboards.</p>
-        </article>
-        <article className="card">
-          <h3>Export fast</h3>
-          <p>Grab the file, or send to your editor tool of choice. Get back to streaming.</p>
-        </article>
-      </div>
-
-      <div className="faq">
-        <details>
-          <summary>When does the beta start?</summary>
-          <p>We're letting people in gradually. Join the waitlist and you'll get updates as we roll invites.</p>
-        </details>
-        <details>
-          <summary>Is this only for Twitch?</summary>
-          <p>Twitch first. Kick support is planned. Tell us what you use when you sign up.</p>
-        </details>
-        <details>
-          <summary>Will there be a desktop app?</summary>
-          <p>Yes — a lightweight macOS companion for bulk actions is in the works.</p>
-        </details>
-      </div>
-    </section>
-  );
-}
-
-// FAQ section
-function FAQSection() {
-  return null; // Already included in FeaturesSection
-}
-
-// Footer component
-function Footer() {
-  return (
-    <footer className="shell foot">
-      <span>© {new Date().getFullYear()} Clipzy • Built for streamers who create.</span>
-    </footer>
-  );
+function getAttribution() {
+  const params = new URLSearchParams(window.location.search);
+  return {
+    utm_source: params.get("utm_source") || "",
+    utm_medium: params.get("utm_medium") || "",
+    utm_campaign: params.get("utm_campaign") || "",
+    utm_content: params.get("utm_content") || "",
+    utm_term: params.get("utm_term") || "",
+    referrer: document.referrer || "",
+    landingPath: `${window.location.pathname}${window.location.search}` || "/",
+  };
 }

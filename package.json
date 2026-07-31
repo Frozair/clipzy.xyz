@@ -11,6 +11,7 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "test": "node --test api/waitlist.test.js",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -33,6 +34,6 @@
     "vite": "^4.4.5"
   },
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=18.0.0"
   }
 }
