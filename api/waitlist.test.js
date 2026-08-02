@@ -7,6 +7,7 @@ test("saves to Formspark before sending the welcome email", async (t) => {
     FORMSPARK_FORM_ID: "clipzyForm",
     FORMSPARK_ACTION_URL: "",
     RESEND_API_KEY: "resend_test_key",
+    RESEND_WAITLIST_SEGMENT_ID: "segment_clipzy",
     WAITLIST_WELCOME_FROM_EMAIL: "hello@clipzy.xyz",
     WAITLIST_WELCOME_FROM_NAME: "Clipzy",
     WAITLIST_WELCOME_REPLY_TO_EMAIL: "hello@clipzy.xyz",
@@ -14,6 +15,10 @@ test("saves to Formspark before sending the welcome email", async (t) => {
 
   const calls = mockFetch(t, [
     new Response("{}", { status: 200 }),
+    new Response(JSON.stringify({ id: "contact_123" }), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    }),
     new Response(JSON.stringify({ id: "email_123" }), {
       status: 200,
       headers: { "Content-Type": "application/json" },
@@ -35,11 +40,18 @@ test("saves to Formspark before sending the welcome email", async (t) => {
 
   assert.equal(response.statusCode, 200);
   assert.equal(response.json.saved, true);
+  assert.equal(response.json.contactSynced, true);
+  assert.equal(response.json.contactId, "contact_123");
   assert.equal(response.json.welcomeEmailSent, true);
   assert.equal(response.json.welcomeEmailId, "email_123");
-  assert.equal(calls.length, 2);
+  assert.equal(calls.length, 3);
   assert.equal(calls[0].url, "https://submit-form.com/clipzyForm");
-  assert.equal(calls[1].url, "https://api.resend.com/emails");
+  assert.equal(calls[1].url, "https://api.resend.com/contacts");
+  assert.equal(calls[2].url, "https://api.resend.com/emails");
+
+  const contactBody = JSON.parse(calls[1].options.body);
+  assert.equal(contactBody.email, "creator@example.com");
+  assert.deepEqual(contactBody.segments, [{ id: "segment_clipzy" }]);
 
   const formsparkBody = JSON.parse(calls[0].options.body);
 
@@ -63,6 +75,7 @@ test("keeps signup successful when Resend fails after Formspark succeeds", async
   mockConsole(t);
   const calls = mockFetch(t, [
     new Response("{}", { status: 200 }),
+    new Response(JSON.stringify({ id: "contact_123" }), { status: 200 }),
     new Response("sender rejected", { status: 400 }),
   ]);
 
@@ -74,7 +87,36 @@ test("keeps signup successful when Resend fails after Formspark succeeds", async
   assert.equal(response.statusCode, 200);
   assert.equal(response.json.saved, true);
   assert.equal(response.json.welcomeEmailSent, false);
-  assert.equal(calls.length, 2);
+  assert.equal(response.json.contactSynced, true);
+  assert.equal(calls.length, 3);
+});
+
+test("keeps signup successful when Resend contact sync fails", async (t) => {
+  withEnv(t, {
+    FORMSPARK_FORM_ID: "clipzyForm",
+    FORMSPARK_ACTION_URL: "",
+    RESEND_API_KEY: "resend_test_key",
+    RESEND_WAITLIST_SEGMENT_ID: "segment_clipzy",
+    WAITLIST_WELCOME_FROM_EMAIL: "hello@clipzy.xyz",
+  });
+
+  mockConsole(t);
+  const calls = mockFetch(t, [
+    new Response("{}", { status: 200 }),
+    new Response("contact rejected", { status: 400 }),
+    new Response(JSON.stringify({ id: "email_123" }), { status: 200 }),
+  ]);
+
+  const response = await callHandler({
+    email: "creator@example.com",
+    attribution: { landingPath: "/" },
+  });
+
+  assert.equal(response.statusCode, 200);
+  assert.equal(response.json.saved, true);
+  assert.equal(response.json.contactSynced, false);
+  assert.equal(response.json.welcomeEmailSent, true);
+  assert.equal(calls.length, 3);
 });
 
 test("fails signup when Formspark does not save it", async (t) => {

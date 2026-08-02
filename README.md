@@ -54,6 +54,7 @@ Required:
 ```bash
 FORMSPARK_FORM_ID=
 RESEND_API_KEY=
+RESEND_WAITLIST_SEGMENT_ID=
 WAITLIST_WELCOME_FROM_EMAIL=
 ```
 
@@ -83,8 +84,9 @@ Flow:
 1. The frontend validates the email and captures `utm_source`, `utm_medium`, `utm_campaign`, `utm_content`, `utm_term`, `referrer`, and `landingPath`.
 2. `/api/waitlist` validates the email server-side.
 3. The API route saves the signup to Formspark.
-4. Only after Formspark succeeds, the API route attempts a Resend welcome email.
-5. If Resend fails, the signup still succeeds because Formspark already saved it.
+4. Only after Formspark succeeds, the API route adds the signup to Resend Contacts and, when configured, the Clipzy waitlist segment.
+5. The API route sends the branded Resend welcome email.
+6. If either Resend action fails, the signup still succeeds because Formspark already saved it.
 
 ### Tailwind CSS
 - Custom color palette defined in `tailwind.config.js`
@@ -118,11 +120,14 @@ This project is optimized for Vercel deployment:
 1. Connect your GitHub repository to Vercel
 2. Create a Formspark form and set `FORMSPARK_FORM_ID`
 3. Verify your sending domain in Resend and set `RESEND_API_KEY`
-4. Set `WAITLIST_WELCOME_FROM_EMAIL` to a plain email address on the verified domain
-5. Set `WAITLIST_WELCOME_FROM_NAME` and `WAITLIST_WELCOME_REPLY_TO_EMAIL`
-6. Configure Cloudflare Email Routing for the reply-to address so replies reach the founder inbox
-7. Redeploy after env vars are configured
-8. Vercel Analytics will be automatically enabled
+4. Create a Resend segment named `Clipzy Waitlist` and set `RESEND_WAITLIST_SEGMENT_ID` to its ID
+5. Set `WAITLIST_WELCOME_FROM_EMAIL=hi@clipzy.xyz`
+6. Set `WAITLIST_WELCOME_FROM_NAME=Clipzy` and `WAITLIST_WELCOME_REPLY_TO_EMAIL=hi@clipzy.xyz`
+7. In Cloudflare Email Routing, verify `apps.frozair@gmail.com` as a destination and route `hi@clipzy.xyz` to it
+8. Redeploy after env vars are configured
+9. Import existing waitlist emails from Formspark into the same Resend segment before sending the first update
+10. Send future updates as Resend Broadcasts to the segment, with Resend's unsubscribe footer enabled
+11. Vercel Analytics will be automatically enabled
 
 ### Production Smoke Test
 
@@ -138,6 +143,7 @@ Confirm:
 - A valid signup shows the success state
 - Formspark receives the submission
 - Formspark includes UTM fields, referrer, and landing path
+- Resend Contacts contains the signup in the Clipzy waitlist segment
 - Resend logs a sent welcome email
 - The welcome email arrives in the signup inbox
 - Reply-to routes to the intended inbox through Cloudflare Email Routing
