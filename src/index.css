@@ -155,8 +155,8 @@ h1, h2, h3 { font-family: "Manrope", sans-serif; }
 .proof-inner i { width: 4px; height: 4px; border-radius: 50%; background: var(--purple); box-shadow: 0 0 10px var(--purple); }
 .section { padding-top: 120px; padding-bottom: 120px; }
 .section-heading { display: grid; grid-template-columns: 1.3fr .7fr; align-items: end; gap: 100px; margin-bottom: 55px; }
-.section-heading .kicker, .faq-intro .kicker, .waitlist .kicker, .privacy .kicker { margin-bottom: 13px; }
-.section-heading h2, .pro-section h2, .privacy h2, .faq-section h2, .waitlist h2 { margin-bottom: 0; font-size: clamp(36px, 4.2vw, 57px); line-height: 1.06; letter-spacing: -2.8px; }
+.section-heading .kicker, .pricing-heading .kicker, .faq-intro .kicker, .waitlist .kicker, .privacy .kicker { margin-bottom: 13px; }
+.section-heading h2, .pricing-section h2, .privacy h2, .faq-section h2, .waitlist h2 { margin-bottom: 0; font-size: clamp(36px, 4.2vw, 57px); line-height: 1.06; letter-spacing: -2.8px; }
 .section-heading > p, .privacy > p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.7; }
 .workflow { display: grid; grid-template-columns: 1.15fr .925fr .925fr; gap: 16px; }
 .workflow-card { min-height: 570px; padding: 28px; position: relative; overflow: hidden; border: 1px solid var(--line); border-radius: 23px; background: linear-gradient(150deg, rgba(255,255,255,.055), rgba(255,255,255,.018)); }
@@ -212,22 +212,31 @@ h1, h2, h3 { font-family: "Manrope", sans-serif; }
 .mini-feature h3 { margin-bottom: 7px; font-size: 15px; }
 .mini-feature p { margin: 0; color: #8f8a98; font-size: 12px; line-height: 1.6; }
 
-.pro-section { min-height: 610px; margin-top: 120px; padding: 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 90px; align-items: center; position: relative; overflow: hidden; border: 1px solid rgba(169,125,255,.2); border-radius: 30px; background: linear-gradient(140deg, #201536, #110f19 56%, #0e1b1c); }
-.pro-section:before { content:""; position:absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.024) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.024) 1px, transparent 1px); background-size: 42px 42px; mask-image: linear-gradient(to right, black, transparent 80%); }
-.pro-glow { position: absolute; width: 520px; height: 520px; left: -260px; top: -280px; border-radius: 50%; background: radial-gradient(circle, rgba(146,87,255,.28), transparent 65%); }
-.pro-copy, .pro-features { position: relative; z-index: 1; }
-.coming-soon { display: inline-block; margin-bottom: 28px; padding: 7px 11px; border: 1px solid rgba(85,230,211,.25); border-radius: 999px; color: var(--aqua); background: rgba(85,230,211,.065); text-transform: uppercase; letter-spacing: 1.4px; font-size: 8px; font-weight: 700; }
-.pro-mark { margin-bottom: 15px; display: flex; align-items: center; gap: 7px; color: #cbb8f3; font: 700 11px "Manrope"; letter-spacing: 1.7px; }
-.pro-mark b { color: var(--aqua); }
-.pro-copy h2 { font-size: clamp(38px, 4vw, 54px); }
-.pro-copy > p:not(.pro-mark) { margin: 20px 0 30px; color: #a8a2b1; font-size: 14px; line-height: 1.7; }
-.button-light { color: #17111f; background: white; }
-.pro-features { display: grid; gap: 13px; }
-.pro-features article { padding: 17px; display: flex; align-items: center; gap: 15px; border: 1px solid rgba(255,255,255,.1); border-radius: 15px; background: rgba(255,255,255,.045); backdrop-filter: blur(8px); }
-.pro-features article > span { width: 37px; height: 37px; flex: 0 0 auto; display: grid; place-items: center; border-radius: 10px; color: #c9b1ff; background: rgba(155,108,255,.12); }
-.pro-features svg { width: 17px; }
-.pro-features h3 { margin-bottom: 3px; font-size: 13px; }
-.pro-features p { margin: 0; color: #8f8998; font-size: 10px; line-height: 1.4; }
+.pricing-section { padding: 120px 0 135px; scroll-margin-top: 30px; }
+.pricing-heading { display: grid; grid-template-columns: 1.25fr .75fr; align-items: end; gap: 90px; margin-bottom: 52px; }
+.pricing-heading > p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.7; }
+.pricing-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.pricing-card { min-height: 580px; padding: 38px; display: flex; flex-direction: column; position: relative; overflow: hidden; border: 1px solid var(--line); border-radius: 26px; background: linear-gradient(150deg, rgba(255,255,255,.055), rgba(255,255,255,.018)); }
+.pricing-card-featured { border-color: rgba(169,125,255,.34); background: radial-gradient(circle at 100% 0, rgba(85,230,211,.11), transparent 34%), radial-gradient(circle at 0 0, rgba(146,87,255,.23), transparent 44%), #121019; box-shadow: 0 26px 70px rgba(0,0,0,.24); }
+.pricing-card-featured:before { content:""; position: absolute; inset: 0; pointer-events: none; background-image: linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px); background-size: 42px 42px; mask-image: linear-gradient(to bottom, black, transparent 78%); }
+.pricing-card > * { position: relative; z-index: 1; }
+.pricing-card-topline { min-height: 34px; display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+.pricing-tier { margin: 5px 0 0; display: flex; align-items: center; gap: 8px; color: #e9e3f4; font: 700 13px "Manrope"; letter-spacing: .3px; }
+.pricing-tier svg { color: var(--aqua); }
+.coming-soon { display: inline-block; padding: 7px 11px; border: 1px solid rgba(85,230,211,.25); border-radius: 999px; color: var(--aqua); background: rgba(85,230,211,.065); text-transform: uppercase; letter-spacing: 1.4px; white-space: nowrap; font-size: 8px; font-weight: 700; }
+.price { margin-top: 30px; display: flex; align-items: baseline; gap: 10px; }
+.price strong { font: 800 clamp(50px, 5vw, 70px)/1 "Manrope"; letter-spacing: -3.8px; }
+.price span { color: #8f8998; font-size: 12px; }
+.annual-price { min-height: 25px; margin: 13px 0 0; display: flex; align-items: center; gap: 10px; color: #cfc6dc; font-size: 12px; }
+.annual-price strong { font-weight: 600; }
+.annual-price span { padding: 5px 8px; border-radius: 999px; color: var(--aqua); background: rgba(85,230,211,.09); text-transform: uppercase; letter-spacing: .8px; font-size: 7px; font-weight: 700; }
+.annual-price-placeholder { color: #77717e; }
+.pricing-description { max-width: 490px; min-height: 52px; margin: 24px 0; color: #aaa4b2; font-size: 13px; line-height: 1.65; }
+.pricing-card .button { width: 100%; }
+.pricing-card ul { margin: 28px 0 0; padding: 26px 0 0; display: grid; gap: 13px; border-top: 1px solid var(--line); list-style: none; }
+.pricing-card li { display: flex; align-items: flex-start; gap: 10px; color: #c4bfca; font-size: 12px; line-height: 1.45; }
+.pricing-card li svg { width: 15px; flex: 0 0 auto; margin-top: 1px; color: var(--aqua); }
+.pricing-note { margin: 18px 0 0; color: #77717e; text-align: center; font-size: 10px; }
 .privacy { padding: 145px 0; display: grid; grid-template-columns: auto 1fr .8fr; align-items: center; gap: 30px; }
 .privacy-icon { width: 64px; height: 64px; display: grid; place-items: center; border: 1px solid rgba(85,230,211,.24); border-radius: 18px; color: var(--aqua); background: rgba(85,230,211,.065); }
 .privacy h2 { max-width: 620px; font-size: clamp(31px, 3.5vw, 46px); }
@@ -272,12 +281,12 @@ h1, h2, h3 { font-family: "Manrope", sans-serif; }
   .hero-visual { margin-top: 15px; }
   .float-progress { left: 12%; }
   .float-keep { right: 12%; }
-  .section-heading, .privacy, .faq-section { grid-template-columns: 1fr; gap: 30px; }
+  .section-heading, .pricing-heading, .privacy, .faq-section { grid-template-columns: 1fr; gap: 30px; }
   .workflow { grid-template-columns: 1fr 1fr; }
   .workflow-featured { grid-column: 1 / -1; }
   .workflow-card { min-height: 520px; }
   .mini-grid { grid-template-columns: 1fr 1fr; }
-  .pro-section { padding: 55px; gap: 55px; }
+  .pricing-heading { margin-bottom: 40px; }
   .privacy > p { padding: 0; border: 0; max-width: 700px; }
   .waitlist-inner { grid-template-columns: 1fr; gap: 35px; }
 }
@@ -299,13 +308,18 @@ h1, h2, h3 { font-family: "Manrope", sans-serif; }
   .proof-inner i { width: 3px; height: 3px; }
   .section { padding: 90px 0; }
   .section-heading { margin-bottom: 35px; }
-  .section-heading h2, .pro-section h2, .privacy h2, .faq-section h2, .waitlist h2 { letter-spacing: -2px; }
+  .section-heading h2, .pricing-section h2, .privacy h2, .faq-section h2, .waitlist h2 { letter-spacing: -2px; }
   .workflow { grid-template-columns: 1fr; }
   .workflow-featured { grid-column: auto; }
   .workflow-card { min-height: 540px; }
   .mini-grid { grid-template-columns: 1fr; gap: 38px; }
   .feature-band { padding: 80px 0; }
-  .pro-section { width: calc(100% - 28px); margin-top: 90px; padding: 42px 24px; grid-template-columns: 1fr; gap: 42px; }
+  .pricing-section { padding: 90px 0 105px; }
+  .pricing-heading { margin-bottom: 32px; }
+  .pricing-grid { grid-template-columns: 1fr; }
+  .pricing-card { min-height: 0; padding: 28px 22px; }
+  .price strong { letter-spacing: -3px; }
+  .pricing-description { min-height: 0; }
   .privacy { padding: 100px 0; }
   .faq-section { padding: 85px 0; }
   .waitlist { padding-bottom: 80px; }

@@ -1,21 +1,31 @@
-<svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-labelledby="title desc">
+  <title id="title">Clipzy app icon</title>
+  <desc id="desc">Two stacked clip cards with a forward swipe chevron on a dark background.</desc>
   <defs>
-    <linearGradient id="clipzyGrad" x1="0" y1="0" x2="1024" y2="1024" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#A875FF"/>
-      <stop offset="100%" stop-color="#45E0B2"/>
+    <linearGradient id="background" x1="90" y1="70" x2="930" y2="960" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#171022"/>
+      <stop offset="0.55" stop-color="#0B0910"/>
+      <stop offset="1" stop-color="#071715"/>
     </linearGradient>
-    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur in="SourceAlpha" stdDeviation="12" result="blur"/>
-      <feOffset dx="0" dy="8" result="offset"/>
-      <feColorMatrix in="offset" type="matrix" 
-        values="0 0 0 0 0
-                0 0 0 0 0
-                0 0 0 0 0
-                0 0 0 0.55 0" result="shadow"/>
-      <feMerge><feMergeNode in="shadow"/><feMergeNode in="SourceGraphic"/></feMerge>
-    </filter>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientTransform="translate(770 215) rotate(132) scale(610)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8B5CF6" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#8B5CF6" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="clipzy-gradient" x1="230" y1="220" x2="790" y2="820" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#A875FF"/>
+      <stop offset="0.52" stop-color="#8B5CF6"/>
+      <stop offset="1" stop-color="#55E6D3"/>
+    </linearGradient>
   </defs>
-  <rect x="64" y="64" width="896" height="896" rx="220" fill="#0E0F12"/>
-  <path d="M 724.13 724.13 A 300 300 0 1 1 724.13 299.87" stroke="url(#clipzyGrad)" stroke-width="150" stroke-linecap="round" fill="none" filter="url(#shadow)"/>
-  <path d="M 552 512 L 472 442 L 472 582 Z" fill="url(#clipzyGrad)" filter="url(#shadow)"/>
+  <rect width="1024" height="1024" fill="url(#background)"/>
+  <rect width="1024" height="1024" fill="url(#glow)"/>
+  <g transform="translate(42 40) scale(.92)">
+    <g transform="rotate(-9 465 520)" opacity="0.72">
+      <rect x="216" y="252" width="470" height="540" rx="126" fill="none" stroke="url(#clipzy-gradient)" stroke-width="66"/>
+    </g>
+    <g transform="rotate(7 562 502)">
+      <rect x="316" y="224" width="492" height="556" rx="132" fill="url(#clipzy-gradient)"/>
+      <path d="M492 397L638 502L492 607" fill="none" stroke="#0A090E" stroke-width="72" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </g>
 </svg>

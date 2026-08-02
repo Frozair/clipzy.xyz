@@ -3,7 +3,6 @@ import {
   ArrowRight,
   Check,
   ChevronDown,
-  Cloud,
   Download,
   Lock,
   MonitorSmartphone,
@@ -11,7 +10,6 @@ import {
   RotateCcw,
   Share2,
   Sparkles,
-  Wand2,
 } from "lucide-react";
 
 const WAITLIST_ENDPOINT = "/api/waitlist";
@@ -42,7 +40,7 @@ const faqItems = [
   {
     question: "When will Clipzy Pro launch?",
     answer:
-      "Pro is still being built. Join the waitlist and we’ll share pricing and availability before it launches.",
+      "Pro is still being built. Planned launch pricing is $5.99 per month or $39.99 per year. Join the waitlist and we’ll let you know when it’s ready.",
   },
 ];
 
@@ -94,7 +92,7 @@ export default function WaitlistLanding() {
         </a>
         <nav aria-label="Primary navigation">
           <a href="#features">Features</a>
-          <a href="#pro">Pro</a>
+          <a href="#pro">Pricing</a>
           <a href="#faq">FAQ</a>
         </nav>
         <a className="nav-cta" href="#waitlist">Get early access</a>
@@ -188,26 +186,56 @@ export default function WaitlistLanding() {
           </div>
         </section>
 
-        <section className="pro-section shell" id="pro">
-          <div className="pro-glow" />
-          <div className="pro-copy">
-            <span className="coming-soon">Coming soon</span>
-            <p className="pro-mark"><Sparkles size={18} /> CLIPZY <b>PRO</b></p>
-            <h2>Your content workflow, with the limits removed.</h2>
+        <section className="pricing-section shell" id="pro">
+          <div className="pricing-heading">
+            <div>
+              <p className="kicker">Simple pricing</p>
+              <h2>Start free. Go Pro when your backlog gets serious.</h2>
+            </div>
             <p>
-              The free app handles the whole core loop. Pro is for creators ready
-              to move more clips across more screens.
+              The core review workflow stays free. Pro adds the power tools for
+              creators moving more clips across more screens.
             </p>
-            <a className="button button-light" href="#waitlist">
-              Get Pro launch updates <ArrowRight size={17} />
-            </a>
           </div>
-          <div className="pro-features">
-            <ProFeature icon={Wand2} title="Unlimited exports" body="Create and share without a monthly export cap." />
-            <ProFeature icon={Cloud} title="Cross-device sync" body="Keep your library and progress in step across devices." />
-            <ProFeature icon={MonitorSmartphone} title="Desktop access" body="Pick up your workflow on a bigger screen." />
-            <ProFeature icon={Sparkles} title="No ads" body="A completely uninterrupted Clipzy experience." />
+
+          <div className="pricing-grid">
+            <PricingCard
+              name="Free"
+              price="$0"
+              cadence="forever"
+              description="A fast, focused way to review your own clips and keep the best moments organized."
+              cta="Join the beta waitlist"
+              features={[
+                "Swipe to keep or hide clips",
+                "Search and sort your library",
+                "Up to 3 collections",
+                "Download and share one clip at a time",
+                "Occasional ads help keep Clipzy free",
+              ]}
+            />
+
+            <PricingCard
+              name="Pro"
+              price="$5.99"
+              cadence="per month"
+              annual="$39.99 per year · $3.33/month"
+              description="Remove the limits and turn a growing clip library into a repeatable content workflow."
+              cta="Join the Pro waitlist"
+              featured
+              features={[
+                "Everything in Free",
+                "Unlimited and smart collections",
+                "Batch actions for faster cleanup",
+                "Reusable export presets",
+                "Cross-device sync",
+                "No ads",
+              ]}
+            />
           </div>
+
+          <p className="pricing-note">
+            Pro is coming soon. Annual billing saves 44% compared with paying monthly.
+          </p>
         </section>
 
         <section className="privacy shell">
@@ -312,8 +340,39 @@ function Feature({ icon: Icon, title, body }) {
   return <article className="mini-feature"><span><Icon /></span><h3>{title}</h3><p>{body}</p></article>;
 }
 
-function ProFeature({ icon: Icon, title, body }) {
-  return <article><span><Icon /></span><div><h3>{title}</h3><p>{body}</p></div></article>;
+function PricingCard({ name, price, cadence, annual, description, cta, features, featured = false }) {
+  return (
+    <article className={`pricing-card${featured ? " pricing-card-featured" : ""}`}>
+      <div className="pricing-card-topline">
+        <p className="pricing-tier">
+          {featured && <Sparkles size={16} aria-hidden="true" />}
+          Clipzy {name}
+        </p>
+        {featured && <span className="coming-soon">Coming soon</span>}
+      </div>
+      <div className="price">
+        <strong>{price}</strong>
+        <span>{cadence}</span>
+      </div>
+      {annual ? (
+        <p className="annual-price">
+          <strong>{annual}</strong>
+          <span>Best value</span>
+        </p>
+      ) : (
+        <p className="annual-price annual-price-placeholder">No card required during beta</p>
+      )}
+      <p className="pricing-description">{description}</p>
+      <a className={`button ${featured ? "button-primary" : "button-quiet"}`} href="#waitlist">
+        {cta} <ArrowRight size={17} />
+      </a>
+      <ul>
+        {features.map((feature) => (
+          <li key={feature}><Check size={16} aria-hidden="true" /> {feature}</li>
+        ))}
+      </ul>
+    </article>
+  );
 }
 
 function WaitlistForm({ email, setEmail, submitted, error, isSubmitting, onSubmit }) {
