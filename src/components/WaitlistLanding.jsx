@@ -35,12 +35,12 @@ const faqItems = [
   {
     question: "What devices will Clipzy support?",
     answer:
-      "Clipzy is built for iPhone and Android. Desktop access is planned as part of Clipzy Pro.",
+      "The launch release is built for iPhone and Android. Desktop is being developed separately and is not included as a Clipzy Pro benefit.",
   },
   {
-    question: "When will Clipzy Pro launch?",
+    question: "What does Clipzy Pro include?",
     answer:
-      "Pro is still being built. Planned launch pricing is $5.99 per month or $39.99 per year. Join the waitlist and we’ll let you know when it’s ready.",
+      "Clipzy Pro includes unlimited exports and removes ads. Launch pricing is $5.99 per month or $49.99 per year; the exact localized price is shown in the app before purchase.",
   },
 ];
 
@@ -193,8 +193,8 @@ export default function WaitlistLanding() {
               <h2>Start free. Go Pro when your backlog gets serious.</h2>
             </div>
             <p>
-              The core review workflow stays free. Pro adds the power tools for
-              creators moving more clips across more screens.
+              Browsing, reviewing, organizing, playing, and downloading your clips
+              stay free. Pro removes the monthly export limit and ads.
             </p>
           </div>
 
@@ -204,12 +204,12 @@ export default function WaitlistLanding() {
               price="$0"
               cadence="forever"
               description="A fast, focused way to review your own clips and keep the best moments organized."
-              cta="Join the beta waitlist"
+              cta="Join the waitlist"
               features={[
                 "Swipe to keep or hide clips",
                 "Search and sort your library",
-                "Up to 3 collections",
-                "Download and share one clip at a time",
+                "Organize clips into collections",
+                "20 finished exports per month",
                 "Occasional ads help keep Clipzy free",
               ]}
             />
@@ -218,23 +218,21 @@ export default function WaitlistLanding() {
               name="Pro"
               price="$5.99"
               cadence="per month"
-              annual="$39.99 per year · $3.33/month"
-              description="Remove the limits and turn a growing clip library into a repeatable content workflow."
-              cta="Join the Pro waitlist"
+              annual="$49.99 per year · about $4.17/month"
+              description="Export as often as you need and use Clipzy without ads."
+              cta="Join the waitlist"
               featured
               features={[
                 "Everything in Free",
-                "Unlimited and smart collections",
-                "Batch actions for faster cleanup",
-                "Reusable export presets",
-                "Cross-device sync",
+                "Unlimited finished exports",
                 "No ads",
               ]}
             />
           </div>
 
           <p className="pricing-note">
-            Pro is coming soon. Annual billing saves 44% compared with paying monthly.
+            Pro is available in the mobile beta. Prices may vary by country and are
+            confirmed by Apple or Google before purchase.
           </p>
         </section>
 
@@ -292,6 +290,7 @@ export default function WaitlistLanding() {
           <a href="https://www.twitch.tv/fr0zair" target="_blank" rel="noreferrer">Follow the build</a>
           <a href="/privacy/">Privacy</a>
           <a href="/support/">Support</a>
+          <a href="/terms/">Terms</a>
           <span>© {new Date().getFullYear()} Clipzy</span>
         </div>
       </footer>
