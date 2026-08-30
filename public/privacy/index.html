@@ -16,73 +16,118 @@
       </a>
       <main>
         <h1>Privacy Policy</h1>
-        <p class="updated">Effective July 30, 2026</p>
+        <p class="updated">Effective August 30, 2026</p>
 
         <div class="callout">
-          Clipzy is local-first. The mobile app has no Clipzy account server,
-          does not proxy your videos, and does not sell personal data.
+          Clipzy is local-first. The mobile app has no Clipzy account,
+          authentication, media, analytics, or synchronization server, does not
+          proxy your videos, and does not sell personal data.
         </div>
 
-        <h2>What the mobile app processes</h2>
+        <h2>Information processed on your device</h2>
         <p>
-          When you sign in, Clipzy connects directly to Twitch using Twitch
-          OAuth. It processes your Twitch user ID, display name, profile image,
-          access token, and information about clips from your channel so the app
-          can show and manage your clip backlog.
+          Clipzy stores your Twitch access token in Android Keystore or iOS
+          Keychain. It stores your Twitch user identifier, clip library, review
+          decisions, collections, edit drafts, export allowance, and subscription
+          entitlement cache locally on your device.
         </p>
         <p>
-          Your access token is stored in encrypted Android storage or the iOS
-          Keychain. Clip metadata, review decisions, collections, download
-          records, edit settings, and export allowance are stored locally on
-          your device and separated by Twitch account.
-        </p>
-
-        <h2>Videos, downloads, and exports</h2>
-        <p>
-          Playback and downloads come directly from Twitch. Editing and export
-          happen on your device. Clipzy does not upload, host, or proxy your
-          video files.
+          Downloaded clips and working files remain in app storage. Finished
+          exports are saved to your device media library and remain there until
+          you remove them. Clipzy sends a file to another app only when you
+          choose to share it.
         </p>
 
-        <h2>Automatic captions</h2>
-        <p>
-          Caption generation is optional. On Android, Clipzy supplies the
-          clip’s audio to an on-device speech model; Android requires microphone
-          permission for this speech API even though Clipzy does not record your
-          microphone. On iOS, Clipzy requests Speech Recognition access and
-          prefers on-device recognition when the device supports it. Apple may
-          process speech through its service when on-device recognition is not
-          available.
-        </p>
+        <h2>Information sent to service providers</h2>
+        <ul>
+          <li>
+            <strong>Twitch:</strong> Clipzy sends your access token and requests
+            associated with your Twitch user identifier to Twitch to sign you in
+            and retrieve or manage clips you are authorized to access.
+          </li>
+          <li>
+            <strong>Google AdMob:</strong> the free plan displays ads. Subject to
+            your region, device settings, and consent choices, Google may process
+            device or advertising identifiers, approximate location, app
+            interactions, ad impressions, and ad engagement for ad delivery,
+            measurement, fraud prevention, and personalization. On iOS, Clipzy
+            requests App Tracking Transparency permission only after the
+            applicable Google consent flow.
+          </li>
+          <li>
+            <strong>Sentry:</strong> Clipzy may send crash reports, diagnostics,
+            performance information, app version, and device information so we
+            can identify and fix reliability problems. Clipzy is configured not
+            to attach Twitch identifiers, access tokens, clip titles, or media
+            URLs to these reports.
+          </li>
+          <li>
+            <strong>RevenueCat and the app stores:</strong> RevenueCat, Apple, or
+            Google process an anonymous app user identifier, product and
+            entitlement status, purchase history, and store receipt or purchase
+            token to offer, validate, restore, and manage subscriptions and
+            prevent fraud. Clipzy does not send your Twitch identifier to
+            RevenueCat and does not receive your full payment-card details.
+          </li>
+          <li>
+            <strong>Apple speech recognition:</strong> on iOS, when an on-device
+            speech model is unavailable for the selected language, Apple may
+            process the audio track of the clip to generate captions. Android
+            caption transcription is performed on the device. Clipzy does not
+            use the microphone to record you for captioning.
+          </li>
+        </ul>
 
-        <h2>Website and Pro waitlist</h2>
+        <h2>Website and waitlist</h2>
         <p>
           The Clipzy website uses Vercel Analytics for aggregate site usage. If
-          you join the optional Pro waitlist, the website sends your email
+          you join the optional email waitlist, the website sends your email
           address and basic signup attribution to Formspark for storage and
-          Resend to deliver the confirmation email. This waitlist is separate
-          from the mobile app.
+          Resend to manage the mailing list and deliver messages. Website and
+          waitlist data are separate from the mobile app.
         </p>
 
-        <h2>Sharing and retention</h2>
+        <h2>Retention and deletion</h2>
         <p>
-          Clipzy shares data with Twitch and the platform services described
-          above only as needed to provide the feature you choose. Local app data
-          remains until you delete it in Clipzy, clear the app’s storage, or
-          uninstall the app. Waitlist emails are retained until they are no
-          longer needed for launch communication or you ask us to remove them.
+          Local app data remains until you use <strong>Account → Delete Local
+          Data</strong> or clear the app's storage. Uninstalling normally removes
+          the app database and app-private files, while credentials in platform
+          secure storage follow Android or iOS system behavior. Delete Local Data
+          applies to the active Twitch account; signing out alone does not delete
+          its local library. Files already published to your media library or
+          shared with another app must be deleted from those locations separately.
+        </p>
+        <p>
+          Twitch, Google, Apple, RevenueCat, Sentry, Formspark, Resend, and Vercel
+          retain information they process according to their own policies and
+          service configurations. Store purchase records may need to be retained
+          for transaction, tax, fraud-prevention, or legal purposes. Waitlist
+          emails remain until they are no longer needed or you ask us to remove
+          them.
         </p>
 
         <h2>Your choices</h2>
+        <ul>
+          <li>Use Google's consent and privacy-options controls for advertising choices.</li>
+          <li>On iOS, allow or deny tracking in the system prompt or later in Settings.</li>
+          <li>Restore or manage a Pro subscription through Clipzy and your Apple or Google account.</li>
+          <li>Sign out and use Twitch settings to revoke Clipzy's access.</li>
+          <li>Delete the active account's local Clipzy data from the Account screen.</li>
+          <li>Request deletion of an email address submitted to the website waitlist.</li>
+        </ul>
+
+        <h2>Children</h2>
         <p>
-          You can sign out, revoke Clipzy in your Twitch connections, deny
-          optional permissions, delete the active account’s local data from the
-          app, or request deletion of a waitlist email.
+          Clipzy is not directed to children. The store listing is intended for
+          adults, and we do not knowingly collect personal information from
+          children through a Clipzy account or backend.
         </p>
 
-        <h2>Contact</h2>
+        <h2>Changes and contact</h2>
         <p>
-          Questions or deletion requests:
+          We may update this policy as Clipzy or its service providers change.
+          The effective date above identifies the current version. Questions,
+          privacy requests, or deletion assistance:
           <a href="mailto:support@clipzy.xyz">support@clipzy.xyz</a>.
         </p>
       </main>
