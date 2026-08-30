@@ -129,6 +129,15 @@ This project is optimized for Vercel deployment:
 10. Send future updates as Resend Broadcasts to the segment, with Resend's unsubscribe footer enabled
 11. Vercel Analytics will be automatically enabled
 
+### Domain association invariant
+
+Keep both `clipzy.xyz` and `www.clipzy.xyz` attached directly to the Vercel project.
+Do not configure the apex domain to redirect to `www`: the mobile OAuth callback uses
+`https://clipzy.xyz/oauth/callback`, and Android Digital Asset Links does not follow
+redirects when it fetches `https://clipzy.xyz/.well-known/assetlinks.json`. The apex
+OAuth callback, `assetlinks.json`, and `apple-app-site-association` must each return a
+direct HTTP 200 response.
+
 ### Production Smoke Test
 
 Use an incognito/private browser with a unique email and a test URL like:
