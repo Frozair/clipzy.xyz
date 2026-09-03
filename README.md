@@ -1,12 +1,13 @@
-# Clipzy Landing Page
+# Clipzy Launch Site
 
-A modern, responsive landing page for Clipzy - a stream clip management app designed for Twitch creators.
+The production website for Clipzy, a local-first mobile workflow for reviewing,
+organizing, reframing, captioning, exporting, and sharing a creator's own Twitch clips.
 
 ## 🚀 Features
 
 - **Responsive Design**: Optimized for all device sizes
 - **Dark Mode**: Built-in dark/light theme support
-- **Waitlist Flow**: Formspark capture with Resend welcome emails
+- **Launch List Flow**: Formspark capture with Resend confirmation emails
 - **Analytics**: Vercel Analytics integration
 - **Modern UI**: Built with Tailwind CSS and React
 - **Performance**: Optimized with Vite build tool
@@ -95,10 +96,9 @@ Flow:
 
 ## 📱 Components
 
-- **WaitlistLanding**: Main landing page component
-- **PhonePreview**: Interactive phone mockup
-- **PlatformBadges**: Platform availability indicators
-- **WaitlistForm**: Email signup form with validation
+- **WaitlistLanding**: Main launch page component
+- **ProductPreview**: Interactive release screenshot gallery
+- **LaunchForm**: Email signup form with validation
 
 ## 🎨 Customization
 

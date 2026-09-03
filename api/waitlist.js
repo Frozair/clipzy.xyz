@@ -56,7 +56,7 @@ export default async function handler(req, res) {
     email,
     submittedAt,
     source: "clipzy-landing",
-    version: "waitlist-v1",
+    version: "launch-list-v2",
     ...attribution,
   };
 
@@ -230,7 +230,7 @@ async function sendWelcomeEmail(email) {
   const body = {
     from: formatSender(fromName, fromEmail),
     to: [email],
-    subject: "🎬 You’re on the list — Clipzy is coming soon!",
+    subject: "You’re on the Clipzy launch list",
     text: renderWelcomeEmailText(),
     html: renderWelcomeEmailHtml(),
   };
@@ -275,18 +275,17 @@ function formatSender(name, email) {
 
 function renderWelcomeEmailText() {
   return [
-    "Hey Streamer,",
+    "Hey streamer,",
     "",
-    "Thanks for signing up for Clipzy. You’re officially on the waitlist to be one of the first streamers to try it out.",
+    "You’re on the Clipzy launch list. We’ll email you as soon as Clipzy lands on the App Store and Google Play.",
     "",
-    "Clipzy makes it simple to grab your own Twitch clips from your phone and send them straight into your editor—without digging through dashboards or messy workflows.",
+    "Clipzy turns your Twitch backlog into a simple mobile workflow: review one clip at a time, keep what matters, find it later, then trim, reframe, caption, export, and share.",
     "",
-    "While we put the final touches on the app, you’ll receive beta invitations and occasional product updates.",
+    "Your reviews, collections, edits, and downloads stay on your device. The free plan includes 20 finished exports every 30 days; Clipzy Pro adds unlimited exports and removes ads.",
     "",
-    "Take the 2-minute survey: https://forms.gle/rTYq3HXRARjsntfV7",
-    "Share the waitlist: https://clipzy.xyz",
+    "See what’s coming: https://clipzy.xyz",
     "",
-    "You joined the Clipzy waitlist at clipzy.xyz. Future product updates will include an unsubscribe link.",
+    "You joined the Clipzy launch list at clipzy.xyz. Future product updates will include an unsubscribe link.",
   ].join("\n");
 }
 
@@ -296,7 +295,7 @@ function renderWelcomeEmailHtml() {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
-  <title>Clipzy – Waitlist Welcome</title>
+  <title>Clipzy – Launch List</title>
 </head>
 <body style="margin:0;padding:0;background:#0E0F12;">
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;background:#0E0F12;">
@@ -305,35 +304,35 @@ function renderWelcomeEmailHtml() {
         <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:640px;border-collapse:collapse;background:#1B1E24;">
           <tr>
             <td style="padding:28px 28px 8px;">
-              <span style="display:inline-block;padding:4px 10px;border-radius:999px;background:#2A2F36;color:#B4BAC2;font:12px Inter,Segoe UI,Helvetica,Arial,sans-serif;">You’re on the list 🎬</span>
+              <span style="display:inline-block;padding:4px 10px;border-radius:999px;background:#2A2F36;color:#B4BAC2;font:12px Inter,Segoe UI,Helvetica,Arial,sans-serif;">You’re on the launch list</span>
             </td>
           </tr>
           <tr>
             <td style="padding:8px 28px 0;font-family:Inter,Segoe UI,Helvetica,Arial,sans-serif;">
-              <h1 style="margin:0;color:#F3F5F7;font-size:26px;line-height:1.3;font-weight:800;">Clipzy is coming soon!</h1>
+              <h1 style="margin:0;color:#F3F5F7;font-size:26px;line-height:1.3;font-weight:800;">Turn Twitch clips into shorts worth posting.</h1>
             </td>
           </tr>
           <tr>
             <td style="padding:16px 28px 0;font-family:Inter,Segoe UI,Helvetica,Arial,sans-serif;">
-              <p style="margin:0 0 12px;color:#F3F5F7;font-size:16px;line-height:1.6;">Hey Streamer,</p>
-              <p style="margin:0 0 12px;color:#B4BAC2;font-size:16px;line-height:1.65;">Thanks for signing up for <strong style="color:#A875FF;">Clipzy</strong> ✨ You’re officially on the waitlist to be one of the first streamers to try it out.</p>
-              <p style="margin:0 0 12px;color:#B4BAC2;font-size:16px;line-height:1.65;"><strong style="color:#F3F5F7;">What’s Clipzy?</strong> It makes it <strong>crazy simple to grab your own Twitch clips</strong> right from your phone and send them straight into your editor. No more digging through dashboards or messy workflows.</p>
-              <p style="margin:0 0 6px;color:#B4BAC2;font-size:16px;line-height:1.65;"><strong style="color:#F3F5F7;">What’s next?</strong> We’re putting the final touches on the app. As a waitlister you’ll:</p>
+              <p style="margin:0 0 12px;color:#F3F5F7;font-size:16px;line-height:1.6;">Hey streamer,</p>
+              <p style="margin:0 0 12px;color:#B4BAC2;font-size:16px;line-height:1.65;">You’re on the <strong style="color:#A875FF;">Clipzy</strong> launch list. We’ll email you as soon as the App Store and Google Play pages are live.</p>
+              <p style="margin:0 0 12px;color:#B4BAC2;font-size:16px;line-height:1.65;">Clipzy turns your Twitch backlog into one mobile workflow: <strong style="color:#F3F5F7;">review, organize, reframe, caption, export.</strong></p>
+              <p style="margin:0 0 6px;color:#B4BAC2;font-size:16px;line-height:1.65;">At launch you’ll be able to:</p>
               <ul style="margin:0 0 16px 22px;padding:0;color:#B4BAC2;font-size:16px;line-height:1.6;">
-                <li>Be first to hear when beta invites begin</li>
-                <li>See sneak previews of new features</li>
-                <li>Receive occasional Clipzy product updates</li>
+                <li>Flick through your own clips and keep what matters</li>
+                <li>Turn horizontal footage into stacked vertical video</li>
+                <li>Generate and edit captions, then export to your gallery</li>
               </ul>
             </td>
           </tr>
           <tr>
             <td style="padding:0 28px 6px;font-family:Inter,Segoe UI,Helvetica,Arial,sans-serif;">
-              <a href="https://forms.gle/rTYq3HXRARjsntfV7" style="display:inline-block;padding:14px 22px;border-radius:10px;background:#A875FF;color:#0E0F12;font-weight:700;text-decoration:none;">Take the 2-minute survey</a>
+              <a href="https://clipzy.xyz" style="display:inline-block;padding:14px 22px;border-radius:10px;background:#A875FF;color:#0E0F12;font-weight:700;text-decoration:none;">See the new Clipzy</a>
             </td>
           </tr>
           <tr>
             <td style="padding:0 28px 8px;font-family:Inter,Segoe UI,Helvetica,Arial,sans-serif;">
-              <p style="margin:10px 0 0;color:#B4BAC2;font-size:14px;line-height:1.6;">Know another streamer who needs this? <a href="https://clipzy.xyz" style="color:#A875FF;text-decoration:none;">Share the waitlist</a>.</p>
+              <p style="margin:10px 0 0;color:#B4BAC2;font-size:14px;line-height:1.6;">The free plan includes 20 finished exports every 30 days. Clipzy Pro adds unlimited exports and removes ads.</p>
             </td>
           </tr>
           <tr>
@@ -341,7 +340,7 @@ function renderWelcomeEmailHtml() {
           </tr>
           <tr>
             <td style="padding:14px 28px 24px;font-family:Inter,Segoe UI,Helvetica,Arial,sans-serif;">
-              <p style="margin:0 0 6px;color:#B4BAC2;font-size:12px;line-height:1.6;">You joined the Clipzy waitlist at clipzy.xyz. Future product updates will include an unsubscribe link.</p>
+              <p style="margin:0 0 6px;color:#B4BAC2;font-size:12px;line-height:1.6;">You joined the Clipzy launch list at clipzy.xyz. Future product updates will include an unsubscribe link.</p>
               <p style="margin:0;color:#B4BAC2;font-size:12px;line-height:1.6;"><a href="https://clipzy.xyz" style="color:#B4BAC2;text-decoration:underline;">clipzy.xyz</a></p>
             </td>
           </tr>

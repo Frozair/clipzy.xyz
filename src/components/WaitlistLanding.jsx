@@ -1,51 +1,97 @@
 import { useState } from "react";
 import {
   ArrowRight,
+  Subtitles,
   Check,
   ChevronDown,
   Download,
+  Layers,
   Lock,
   MonitorSmartphone,
   Play,
   RotateCcw,
+  Scissors,
+  Search,
   Share2,
   Sparkles,
+  Smartphone,
 } from "lucide-react";
 
 const WAITLIST_ENDPOINT = "/api/waitlist";
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-const tabs = [
-  { id: "review", label: "Review" },
-  { id: "library", label: "Library" },
-  { id: "editor", label: "Editor" },
+const previews = [
+  { id: "review", label: "Review", src: "/app/release/02-keep.png" },
+  { id: "library", label: "Library", src: "/app/release/03-library.png" },
+  { id: "stack", label: "Stack", src: "/app/release/04-stack.png" },
+  { id: "captions", label: "Captions", src: "/app/release/05-captions.png" },
+];
+
+const tour = [
+  {
+    number: "01",
+    kicker: "Review",
+    title: "Keep only what’s worth it.",
+    body: "One clip. One decision. Flick or tap to keep or archive, then undo if your thumb gets ahead of you.",
+    src: "/app/release/02-keep.png",
+    alt: "Clipzy review feed showing a Twitch clip with Keep and Archive actions",
+  },
+  {
+    number: "02",
+    kicker: "Organize",
+    title: "Find any clip in seconds.",
+    body: "Search your kept clips, sort by date or views, filter by export status, and group moments into collections.",
+    src: "/app/release/03-library.png",
+    alt: "Clipzy library with search, sorting, filters, and clip thumbnails",
+  },
+  {
+    number: "03",
+    kicker: "Create",
+    title: "Make horizontal footage work vertically.",
+    body: "Trim the moment, reframe it for 9:16, and stack face-cam over gameplay without losing either half of the story.",
+    src: "/app/release/04-stack.png",
+    alt: "Clipzy editor showing face-cam and gameplay in a stacked vertical layout",
+  },
+  {
+    number: "04",
+    kicker: "Finish",
+    title: "Captions that actually land.",
+    body: "Generate captions from the clip’s audio, edit the words and timing, restyle them, and burn them into the export.",
+    src: "/app/release/05-captions.png",
+    alt: "Clipzy editor with generated captions visible on the video and timeline",
+  },
 ];
 
 const faqItems = [
   {
-    question: "Does Clipzy download anyone’s clips?",
+    question: "When and where can I get Clipzy?",
     answer:
-      "No. Clipzy is ownership-only by design. You sign in through Twitch and only see clips that belong to your own channel.",
+      "Clipzy is preparing to launch on iPhone and Android. Join the launch list and we’ll email you as soon as the store pages are live.",
   },
   {
-    question: "Where are my clips and decisions stored?",
+    question: "Can Clipzy access anyone’s Twitch clips?",
     answer:
-      "Your review decisions, collections, and clip metadata stay on your device. Clipzy streams video from Twitch and does not host or proxy your clips.",
+      "No. Clipzy is ownership-only by design. You sign in through Twitch and only see clips owned by your own channel.",
   },
   {
-    question: "What devices will Clipzy support?",
+    question: "Where is my library stored?",
     answer:
-      "The launch release is built for iPhone and Android. Desktop is being developed separately and is not included as a Clipzy Pro benefit.",
+      "Your reviews, collections, edits, and downloads stay on your device and are separated by Twitch account. Clipzy has no custom media backend and never hosts or proxies your clips.",
+  },
+  {
+    question: "What can I do for free?",
+    answer:
+      "Browsing, reviewing, organizing, playback, and downloading stay free. The free plan is supported by ads and includes 20 finished exports in each rolling 30-day period.",
   },
   {
     question: "What does Clipzy Pro include?",
     answer:
-      "Clipzy Pro includes unlimited exports and removes ads. Launch pricing is $5.99 per month or $49.99 per year; the exact localized price is shown in the app before purchase.",
+      "Clipzy Pro unlocks unlimited finished exports and removes ads. Launch pricing is $5.99 per month or $49.99 per year; your app store shows the exact localized price before purchase.",
   },
 ];
 
 export default function WaitlistLanding() {
-  const [activeTab, setActiveTab] = useState("review");
+  const [activePreview, setActivePreview] = useState("review");
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
@@ -91,110 +137,119 @@ export default function WaitlistLanding() {
           <span>Clipzy</span>
         </a>
         <nav aria-label="Primary navigation">
-          <a href="#features">Features</a>
+          <a href="#workflow">How it works</a>
+          <a href="#editor">Editor</a>
           <a href="#pro">Pricing</a>
           <a href="#faq">FAQ</a>
         </nav>
-        <a className="nav-cta" href="#waitlist">Get early access</a>
+        <a className="nav-cta" href="#launch">Get the launch alert</a>
       </header>
 
       <main id="top">
         <section className="hero shell">
           <div className="hero-copy">
-            <div className="eyebrow"><span /> Built by a streamer, for streamers</div>
-            <h1>Your best clips shouldn’t get <em>lost in the backlog.</em></h1>
+            <div className="eyebrow"><span /> Coming to iPhone and Android</div>
+            <h1>Turn Twitch clips into <em>shorts worth posting.</em></h1>
             <p className="hero-lede">
-              Swipe through your Twitch clips, keep the moments that matter, then
-              organize, edit, and share them—all from your phone.
+              Clear your backlog one swipe at a time. Keep the moments that matter,
+              find any clip fast, and turn the best ones into captioned vertical video.
             </p>
             <div className="hero-actions">
-              <a className="button button-primary" href="#waitlist">
-                Join the waitlist <ArrowRight size={17} />
+              <a className="button button-primary" href="#launch">
+                Tell me when it launches <ArrowRight size={17} />
               </a>
-              <a className="button button-quiet" href="#features">
-                See how it works <Play size={15} fill="currentColor" />
+              <a className="button button-quiet" href="#workflow">
+                See the workflow <Play size={15} fill="currentColor" />
               </a>
+            </div>
+            <div className="platform-row" aria-label="Launch platforms">
+              <span><Smartphone size={15} /> App Store <b>soon</b></span>
+              <span><MonitorSmartphone size={15} /> Google Play <b>soon</b></span>
             </div>
             <div className="trust-row">
               <span><Check size={15} /> Official Twitch sign-in</span>
-              <span><Check size={15} /> Local-first</span>
-              <span><Check size={15} /> iOS + Android</span>
+              <span><Check size={15} /> Local-first library</span>
+              <span><Check size={15} /> No Clipzy media server</span>
             </div>
           </div>
 
           <div className="hero-visual">
             <div className="orbit orbit-one" />
             <div className="orbit orbit-two" />
-            <ProductPreview activeTab={activeTab} setActiveTab={setActiveTab} />
+            <ProductPreview activePreview={activePreview} setActivePreview={setActivePreview} />
           </div>
         </section>
 
         <section className="proof-strip" aria-label="Clipzy workflow">
           <div className="shell proof-inner">
-            <span>One thumb.</span><i />
-            <span>One decision.</span><i />
-            <span>One clean library.</span>
+            <span>Review</span><i />
+            <span>Organize</span><i />
+            <span>Edit</span><i />
+            <span>Caption</span><i />
+            <span>Export</span>
           </div>
         </section>
 
-        <section className="section shell" id="features">
+        <section className="section shell" id="workflow">
           <div className="section-heading">
             <div>
-              <p className="kicker">The clip workflow Twitch never built</p>
-              <h2>From clip chaos to content-ready.</h2>
+              <p className="kicker">The whole creator loop</p>
+              <h2>From buried moment to finished short.</h2>
             </div>
             <p>
-              Clipzy turns reviewing clips into a fast, focused flow—so five spare
-              minutes can actually make a dent.
+              Clipzy is no longer just a faster way through your backlog. It’s the
+              mobile workflow from first review to a video ready for your camera roll.
             </p>
           </div>
 
-          <div className="workflow">
-            <article className="workflow-card workflow-featured">
-              <div className="number">01</div>
-              <h3>Review at thumb speed</h3>
-              <p>Keep or hide each clip. Changed your mind? Undo the latest decision right away.</p>
-              <ScreenshotFrame src="/app/review.webp" alt="Clipzy Feed showing a real Twitch clip with hide and keep actions" className="shot-review" />
-            </article>
+          <div className="tour-grid">
+            {tour.map((item) => <TourCard key={item.number} {...item} />)}
+          </div>
+        </section>
 
-            <article className="workflow-card">
-              <div className="number">02</div>
-              <h3>Find the clip you need</h3>
-              <p>Search your library, sort by newest, oldest, or popular, and filter by export status.</p>
-              <ScreenshotFrame src="/app/library.webp" alt="Clipzy Library showing search, sorting, export filters, and real saved clips" className="shot-library" />
-            </article>
-
-            <article className="workflow-card">
-              <div className="number">03</div>
-              <h3>Make it post-ready</h3>
-              <p>Trim, reframe for 9:16, 1:1, or 16:9, choose your portrait layout, then export and share.</p>
-              <ScreenshotFrame src="/app/editor.webp" alt="Clipzy Ready to post editor showing real format, layout, export allowance, and sharing controls" className="shot-editor" />
-            </article>
+        <section className="editor-section" id="editor">
+          <div className="shell editor-grid">
+            <div className="editor-copy">
+              <p className="kicker">A real vertical editor</p>
+              <h2>Keep the face-cam. Keep the gameplay. Keep the punchline.</h2>
+              <p className="editor-lede">
+                Turn a horizontal stream into a vertical clip without sending it to
+                another app. What you frame and caption in Clipzy is what gets exported.
+              </p>
+              <div className="editor-features">
+                <Feature icon={Scissors} title="Trim the moment" body="Tighten the clip or create a longer source from the Twitch VOD when one is available." />
+                <Feature icon={Layers} title="Full or stacked" body="Fit the full frame over a background or crop face-cam and gameplay independently." />
+                <Feature icon={Subtitles} title="On-device captions" body="Generate, edit, split, size, position, and burn captions into the final video." />
+                <Feature icon={MonitorSmartphone} title="Preview the safe zone" body="Check TikTok, Shorts, and Reels overlays before you export." />
+              </div>
+            </div>
+            <div className="editor-gallery" aria-label="Clipzy vertical editing screenshots">
+              <img className="editor-shot editor-shot-back" src="/app/release/04-stack.png" alt="Clipzy stacked portrait editor" loading="lazy" />
+              <img className="editor-shot editor-shot-front" src="/app/release/05-captions.png" alt="Clipzy caption editor" loading="lazy" />
+            </div>
           </div>
         </section>
 
         <section className="feature-band">
-          <div className="shell">
-            <div className="mini-grid">
-              <Feature icon={Play} title="Smooth playback" body="Preview clips in-app with the next moments ready to go." />
-              <Feature icon={Download} title="Direct downloads" body="Save your own clips straight from Twitch to your device." />
-              <Feature icon={Share2} title="Share anywhere" body="Send finished clips to your editor or social app of choice." />
-              <Feature icon={RotateCcw} title="Quick corrections" body="Undo the latest review decision when your thumb moves faster than your brain." />
-              <Feature icon={Lock} title="Your data stays yours" body="Decisions and collections live locally, partitioned by your account." />
-              <Feature icon={MonitorSmartphone} title="Made for mobile" body="The same focused Clipzy experience on iPhone and Android." />
-            </div>
+          <div className="shell mini-grid">
+            <Feature icon={Play} title="Fast review" body="Play one clip at a time with the next moments prepared as you move." />
+            <Feature icon={Search} title="A useful library" body="Search, sort, filter, collect, and revisit the moments you kept." />
+            <Feature icon={Download} title="Direct downloads" body="Save your own clips from Twitch for offline editing and playback." />
+            <Feature icon={RotateCcw} title="Undo without drama" body="Reverse the latest review decision and keep moving through the deck." />
+            <Feature icon={Share2} title="Gallery first" body="Finished edits save to your device, then share anywhere you want." />
+            <Feature icon={Lock} title="Local by default" body="Your working library stays on your device, separated by Twitch account." />
           </div>
         </section>
 
         <section className="pricing-section shell" id="pro">
           <div className="pricing-heading">
             <div>
-              <p className="kicker">Simple pricing</p>
-              <h2>Start free. Go Pro when your backlog gets serious.</h2>
+              <p className="kicker">Simple launch pricing</p>
+              <h2>Start free. Go Pro when you’re on a roll.</h2>
             </div>
             <p>
-              Browsing, reviewing, organizing, playing, and downloading your clips
-              stay free. Pro removes the monthly export limit and ads.
+              Clip access never sits behind the paywall. Pro is for creators who need
+              more finished exports and want an ad-free workflow.
             </p>
           </div>
 
@@ -203,14 +258,13 @@ export default function WaitlistLanding() {
               name="Free"
               price="$0"
               cadence="forever"
-              description="A fast, focused way to review your own clips and keep the best moments organized."
-              cta="Join the waitlist"
+              description="Everything you need to clear the backlog and start turning moments into vertical video."
               features={[
-                "Swipe to keep or hide clips",
-                "Search and sort your library",
-                "Organize clips into collections",
-                "20 finished exports per month",
-                "Occasional ads help keep Clipzy free",
+                "Unlimited browsing, review, and playback",
+                "Search, filters, and collections",
+                "Clip downloads and local editing",
+                "20 finished exports every 30 days",
+                "Supported by occasional ads",
               ]}
             />
 
@@ -219,40 +273,38 @@ export default function WaitlistLanding() {
               price="$5.99"
               cadence="per month"
               annual="$49.99 per year · about $4.17/month"
-              description="Export as often as you need and use Clipzy without ads."
-              cta="Join the waitlist"
+              description="For a steady posting rhythm, launch week, or the backlog that got wildly out of hand."
               featured
               features={[
                 "Everything in Free",
                 "Unlimited finished exports",
-                "No ads",
+                "No ads anywhere in Clipzy",
+                "Restore and manage through your app store",
               ]}
             />
           </div>
 
           <p className="pricing-note">
-            Pro is available in the mobile beta. Prices may vary by country and are
-            confirmed by Apple or Google before purchase.
+            Prices may vary by country. Apple or Google confirms the exact localized price before purchase.
           </p>
         </section>
 
         <section className="privacy shell">
           <div className="privacy-icon"><Lock /></div>
           <div>
-            <p className="kicker">Ownership-only by design</p>
-            <h2>Your clips. Your library. No sketchy workarounds.</h2>
+            <p className="kicker">Local-first by design</p>
+            <h2>Your clips aren’t raw material for our cloud.</h2>
           </div>
           <p>
-            Clipzy uses official Twitch access to show only clips from your own
-            channel. We never host or proxy your video, and your local library
-            remains on your device.
+            Clipzy talks directly to Twitch and stores your reviews, collections, edits,
+            and downloads on your device. There is no Clipzy account or custom media backend.
           </p>
         </section>
 
         <section className="faq-section shell" id="faq">
           <div className="faq-intro">
-            <p className="kicker">Good questions</p>
-            <h2>Before you swipe.</h2>
+            <p className="kicker">The useful details</p>
+            <h2>Before your first flick.</h2>
           </div>
           <div className="faq-list">
             {faqItems.map((item) => (
@@ -264,14 +316,14 @@ export default function WaitlistLanding() {
           </div>
         </section>
 
-        <section className="waitlist shell" id="waitlist">
+        <section className="waitlist shell" id="launch">
           <div className="waitlist-inner">
             <div>
-              <p className="kicker">Private beta</p>
-              <h2>Ready to tame the backlog?</h2>
-              <p>Join the waitlist for beta invites, product updates, and first access to Clipzy Pro.</p>
+              <p className="kicker">Launching soon</p>
+              <h2>Be there when the backlog fights back.</h2>
+              <p>Get one email when Clipzy lands on the App Store and Google Play, plus genuinely useful product updates.</p>
             </div>
-            <WaitlistForm
+            <LaunchForm
               email={email}
               setEmail={setEmail}
               submitted={submitted}
@@ -285,7 +337,7 @@ export default function WaitlistLanding() {
 
       <footer className="footer shell">
         <a className="brand" href="#top"><img src="/logo.png" alt="" /><span>Clipzy</span></a>
-        <p>Built for streamers who would rather stream.</p>
+        <p>Built by a streamer who got tired of the backlog.</p>
         <div>
           <a href="https://www.twitch.tv/fr0zair" target="_blank" rel="noreferrer">Follow the build</a>
           <a href="/privacy/">Privacy</a>
@@ -298,40 +350,42 @@ export default function WaitlistLanding() {
   );
 }
 
-function ProductPreview({ activeTab, setActiveTab }) {
-  const active = tabs.find((tab) => tab.id === activeTab) || tabs[0];
+function ProductPreview({ activePreview, setActivePreview }) {
+  const active = previews.find((preview) => preview.id === activePreview) || previews[0];
 
   return (
     <div className="product-preview">
-      <div className="preview-tabs" role="tablist" aria-label="Real Clipzy app screenshots">
-        {tabs.map((tab) => (
+      <div className="preview-tabs" role="tablist" aria-label="Clipzy release screenshots">
+        {previews.map((preview) => (
           <button
-            key={tab.id}
+            key={preview.id}
             role="tab"
-            aria-selected={activeTab === tab.id}
-            onClick={() => setActiveTab(tab.id)}
+            aria-selected={activePreview === preview.id}
+            onClick={() => setActivePreview(preview.id)}
           >
-            {tab.label}
+            {preview.label}
           </button>
         ))}
       </div>
-      <div className="phone real-phone">
-        <img
-          className="real-app-screen"
-          src={`/app/${active.id === "review" ? "review" : active.id}.webp`}
-          alt={`Current Clipzy ${active.label} screen running on Android`}
-        />
+      <div className="release-preview">
+        <img src={active.src} alt={`Clipzy ${active.label} screen`} />
       </div>
-      <p className="authentic-label"><Check size={13} /> Captured from the current Android app</p>
+      <p className="authentic-label"><Check size={13} /> Captured from the release candidate</p>
     </div>
   );
 }
 
-function ScreenshotFrame({ src, alt, className }) {
+function TourCard({ number, kicker, title, body, src, alt }) {
   return (
-    <div className={`screenshot-frame ${className}`}>
+    <article className="tour-card">
+      <div className="tour-copy">
+        <span className="tour-number">{number}</span>
+        <p className="kicker">{kicker}</p>
+        <h3>{title}</h3>
+        <p>{body}</p>
+      </div>
       <img src={src} alt={alt} loading="lazy" />
-    </div>
+    </article>
   );
 }
 
@@ -339,7 +393,7 @@ function Feature({ icon: Icon, title, body }) {
   return <article className="mini-feature"><span><Icon /></span><h3>{title}</h3><p>{body}</p></article>;
 }
 
-function PricingCard({ name, price, cadence, annual, description, cta, features, featured = false }) {
+function PricingCard({ name, price, cadence, annual, description, features, featured = false }) {
   return (
     <article className={`pricing-card${featured ? " pricing-card-featured" : ""}`}>
       <div className="pricing-card-topline">
@@ -347,23 +401,20 @@ function PricingCard({ name, price, cadence, annual, description, cta, features,
           {featured && <Sparkles size={16} aria-hidden="true" />}
           Clipzy {name}
         </p>
-        {featured && <span className="coming-soon">Coming soon</span>}
+        {featured && <span className="coming-soon">At launch</span>}
       </div>
       <div className="price">
         <strong>{price}</strong>
         <span>{cadence}</span>
       </div>
       {annual ? (
-        <p className="annual-price">
-          <strong>{annual}</strong>
-          <span>Best value</span>
-        </p>
+        <p className="annual-price"><strong>{annual}</strong><span>Best value</span></p>
       ) : (
-        <p className="annual-price annual-price-placeholder">No card required during beta</p>
+        <p className="annual-price annual-price-placeholder">No card required</p>
       )}
       <p className="pricing-description">{description}</p>
-      <a className={`button ${featured ? "button-primary" : "button-quiet"}`} href="#waitlist">
-        {cta} <ArrowRight size={17} />
+      <a className={`button ${featured ? "button-primary" : "button-quiet"}`} href="#launch">
+        Get the launch alert <ArrowRight size={17} />
       </a>
       <ul>
         {features.map((feature) => (
@@ -374,12 +425,12 @@ function PricingCard({ name, price, cadence, annual, description, cta, features,
   );
 }
 
-function WaitlistForm({ email, setEmail, submitted, error, isSubmitting, onSubmit }) {
+function LaunchForm({ email, setEmail, submitted, error, isSubmitting, onSubmit }) {
   if (submitted) {
     return (
       <div className="success-message">
         <span><Check /></span>
-        <div><strong>You’re on the list.</strong><p>We’ll be in touch when invites roll out.</p></div>
+        <div><strong>You’re on the launch list.</strong><p>We’ll email you when Clipzy hits the stores.</p></div>
       </div>
     );
   }
@@ -398,11 +449,11 @@ function WaitlistForm({ email, setEmail, submitted, error, isSubmitting, onSubmi
           disabled={isSubmitting}
         />
         <button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "Joining…" : "Join the waitlist"} <ArrowRight size={16} />
+          {isSubmitting ? "Joining…" : "Get the launch alert"} <ArrowRight size={16} />
         </button>
       </div>
       {error && <p className="form-error" role="alert">{error}</p>}
-      <small>No spam. Just launch news and invites.</small>
+      <small>No spam. Just launch news and occasional product updates.</small>
     </form>
   );
 }
