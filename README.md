@@ -138,6 +138,14 @@ redirects when it fetches `https://clipzy.xyz/.well-known/assetlinks.json`. The 
 OAuth callback, `assetlinks.json`, and `apple-app-site-association` must each return a
 direct HTTP 200 response.
 
+### AdMob ownership verification
+
+Keep `public/app-ads.txt` at the root of both production hosts with the Clipzy AdMob
+publisher declaration. `public/robots.txt` explicitly permits `Google-adstxt`,
+`Mediapartners-Google`, and `Googlebot` so AdMob can crawl the declaration after the
+public Google Play and App Store listings identify `https://clipzy.xyz` as the
+developer website.
+
 ### Production Smoke Test
 
 Use an incognito/private browser with a unique email and a test URL like:
