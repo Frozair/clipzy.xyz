@@ -1,4 +1,4 @@
-# Clipzy Launch Site
+# Clipzy Website
 
 The production website for Clipzy, a local-first mobile workflow for reviewing,
 organizing, reframing, captioning, exporting, and sharing a creator's own Twitch clips.
@@ -7,7 +7,7 @@ organizing, reframing, captioning, exporting, and sharing a creator's own Twitch
 
 - **Responsive Design**: Optimized for all device sizes
 - **Dark Mode**: Built-in dark/light theme support
-- **Launch List Flow**: Formspark capture with Resend confirmation emails
+- **Live Store Links**: App Store and Google Play download badges
 - **Analytics**: Vercel Analytics integration
 - **Modern UI**: Built with Tailwind CSS and React
 - **Performance**: Optimized with Vite build tool
@@ -18,7 +18,7 @@ organizing, reframing, captioning, exporting, and sharing a creator's own Twitch
 - **Styling**: Tailwind CSS
 - **Icons**: Lucide React
 - **Analytics**: Vercel Analytics
-- **Forms**: Formspark + Resend via Vercel Functions
+- **Legacy Signup API**: Formspark + Resend via Vercel Functions
 - **Deployment**: Vercel-ready
 
 ## 📦 Installation
@@ -74,9 +74,10 @@ FORMSPARK_ACTION_URL=
 
 `FORMSPARK_ACTION_URL` can be used when you want to provide a full Formspark endpoint instead of letting the API route build `https://submit-form.com/{FORMSPARK_FORM_ID}`.
 
-### Waitlist Backend
+### Legacy Waitlist Backend
 
-The waitlist form submits to `/api/waitlist`, not directly to provider APIs from the browser.
+The public site now sends visitors directly to the live app stores. The existing
+`/api/waitlist` route remains available for historical campaigns and archived links.
 
 In production this route runs as a Vercel Function. Plain `npm run dev` previews the Vite frontend only; use Vercel's local dev tooling when you need to exercise `/api/waitlist` against real env vars before deployment.
 
@@ -96,9 +97,8 @@ Flow:
 
 ## 📱 Components
 
-- **WaitlistLanding**: Main launch page component
+- **WaitlistLanding**: Main product page component
 - **ProductPreview**: Interactive release screenshot gallery
-- **LaunchForm**: Email signup form with validation
 
 ## 🎨 Customization
 
@@ -148,23 +148,13 @@ developer website.
 
 ### Production Smoke Test
 
-Use an incognito/private browser with a unique email and a test URL like:
-
-```text
-https://clipzy.xyz/?utm_source=test&utm_medium=manual&utm_campaign=waitlist_smoke_test&utm_content=button_a&utm_term=creator
-```
-
 Confirm:
 
-- Empty and invalid email states validate correctly
-- A valid signup shows the success state
-- Formspark receives the submission
-- Formspark includes UTM fields, referrer, and landing path
-- Resend Contacts contains the signup in the Clipzy waitlist segment
-- Resend logs a sent welcome email
-- The welcome email arrives in the signup inbox
-- Reply-to routes to the intended inbox through Cloudflare Email Routing
-- Vercel function logs do not show Formspark or Resend errors
+- The App Store badge opens app ID `6753856526`
+- The Google Play badge opens package `xyz.clipzy`
+- The homepage, privacy, support, and terms pages return HTTP 200
+- The OAuth callback and both mobile association files remain directly reachable
+- `app-ads.txt` remains available to AdMob crawlers
 
 ## 📊 Analytics
 

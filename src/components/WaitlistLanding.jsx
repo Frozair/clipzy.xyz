@@ -1,6 +1,5 @@
 import { useState } from "react";
 import {
-  ArrowRight,
   Subtitles,
   Check,
   ChevronDown,
@@ -14,11 +13,10 @@ import {
   Search,
   Share2,
   Sparkles,
-  Smartphone,
 } from "lucide-react";
 
-const WAITLIST_ENDPOINT = "/api/waitlist";
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const APP_STORE_URL = "https://apps.apple.com/us/app/clipzy-save-and-manage-clips/id6753856526";
+const GOOGLE_PLAY_URL = "https://play.google.com/store/apps/details?id=xyz.clipzy";
 
 const previews = [
   { id: "review", label: "Review", src: "/app/release/02-keep.png" },
@@ -66,7 +64,7 @@ const faqItems = [
   {
     question: "When and where can I get Clipzy?",
     answer:
-      "Clipzy is preparing to launch on iPhone and Android. Join the launch list and we’ll email you as soon as the store pages are live.",
+      "Clipzy is live now on the App Store and Google Play for iPhone and Android.",
   },
   {
     question: "Can Clipzy access anyone’s Twitch clips?",
@@ -92,39 +90,6 @@ const faqItems = [
 
 export default function WaitlistLanding() {
   const [activePreview, setActivePreview] = useState("review");
-  const [email, setEmail] = useState("");
-  const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  async function handleSubmit(event) {
-    event.preventDefault();
-    setError("");
-
-    if (!EMAIL_REGEX.test(email.trim())) {
-      setError("Enter a valid email address.");
-      return;
-    }
-
-    setIsSubmitting(true);
-    try {
-      const response = await fetch(WAITLIST_ENDPOINT, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({ email: email.trim(), attribution: getAttribution() }),
-      });
-      const result = await response.json().catch(() => null);
-      if (!response.ok || !result?.saved) {
-        throw new Error(result?.error || "Couldn’t join right now. Please try again.");
-      }
-      setSubmitted(true);
-      setEmail("");
-    } catch (submissionError) {
-      setError(submissionError.message || "Couldn’t join right now. Please try again.");
-    } finally {
-      setIsSubmitting(false);
-    }
-  }
 
   return (
     <div className="site">
@@ -142,29 +107,23 @@ export default function WaitlistLanding() {
           <a href="#pro">Pricing</a>
           <a href="#faq">FAQ</a>
         </nav>
-        <a className="nav-cta" href="#launch">Get the launch alert</a>
+        <a className="nav-cta" href="#download">Download now</a>
       </header>
 
       <main id="top">
         <section className="hero shell">
           <div className="hero-copy">
-            <div className="eyebrow"><span /> Coming to iPhone and Android</div>
+            <div className="eyebrow"><span /> Now on iPhone and Android</div>
             <h1>Turn Twitch clips into <em>shorts worth posting.</em></h1>
             <p className="hero-lede">
               Clear your backlog one swipe at a time. Keep the moments that matter,
               find any clip fast, and turn the best ones into captioned vertical video.
             </p>
-            <div className="hero-actions">
-              <a className="button button-primary" href="#launch">
-                Tell me when it launches <ArrowRight size={17} />
-              </a>
-              <a className="button button-quiet" href="#workflow">
-                See the workflow <Play size={15} fill="currentColor" />
-              </a>
-            </div>
-            <div className="platform-row" aria-label="Launch platforms">
-              <span><Smartphone size={15} /> App Store <b>soon</b></span>
-              <span><MonitorSmartphone size={15} /> Google Play <b>soon</b></span>
+            <StoreBadges className="hero-store-badges" />
+            <div className="hero-links">
+              <a href="/support/">Support</a>
+              <a href="/privacy/">Privacy policy</a>
+              <a href="https://www.frozair.xyz/apps">View all apps</a>
             </div>
             <div className="trust-row">
               <span><Check size={15} /> Official Twitch sign-in</span>
@@ -180,13 +139,22 @@ export default function WaitlistLanding() {
           </div>
         </section>
 
-        <section className="proof-strip" aria-label="Clipzy workflow">
-          <div className="shell proof-inner">
-            <span>Review</span><i />
-            <span>Organize</span><i />
-            <span>Edit</span><i />
-            <span>Caption</span><i />
-            <span>Export</span>
+        <section className="release-facts shell" aria-label="Clipzy release highlights">
+          <div>
+            <span>OWNERSHIP-ONLY</span>
+            <strong>Your Twitch clips</strong>
+          </div>
+          <div>
+            <span>20 FREE EXPORTS</span>
+            <strong>Every 30 days</strong>
+          </div>
+          <div>
+            <span>FULL + STACKED</span>
+            <strong>Vertical layouts</strong>
+          </div>
+          <div>
+            <span>LOCAL-FIRST</span>
+            <strong>On-device library</strong>
           </div>
         </section>
 
@@ -244,7 +212,7 @@ export default function WaitlistLanding() {
         <section className="pricing-section shell" id="pro">
           <div className="pricing-heading">
             <div>
-              <p className="kicker">Simple launch pricing</p>
+              <p className="kicker">Simple pricing</p>
               <h2>Start free. Go Pro when you’re on a roll.</h2>
             </div>
             <p>
@@ -273,7 +241,7 @@ export default function WaitlistLanding() {
               price="$5.99"
               cadence="per month"
               annual="$49.99 per year · about $4.17/month"
-              description="For a steady posting rhythm, launch week, or the backlog that got wildly out of hand."
+              description="For a steady posting rhythm, a publishing sprint, or the backlog that got wildly out of hand."
               featured
               features={[
                 "Everything in Free",
@@ -316,21 +284,21 @@ export default function WaitlistLanding() {
           </div>
         </section>
 
-        <section className="waitlist shell" id="launch">
-          <div className="waitlist-inner">
+        <section className="download-section shell" id="download">
+          <div className="download-inner">
             <div>
-              <p className="kicker">Launching soon</p>
-              <h2>Be there when the backlog fights back.</h2>
-              <p>Get one email when Clipzy lands on the App Store and Google Play, plus genuinely useful product updates.</p>
+              <p className="kicker">Live on both stores</p>
+              <h2>Your best clips are already waiting.</h2>
+              <p>Download Clipzy, sign in with Twitch, and turn the backlog into a library worth keeping.</p>
             </div>
-            <LaunchForm
-              email={email}
-              setEmail={setEmail}
-              submitted={submitted}
-              error={error}
-              isSubmitting={isSubmitting}
-              onSubmit={handleSubmit}
-            />
+            <div className="download-actions">
+              <StoreBadges />
+              <div className="download-links">
+                <a href="/support/">Support</a>
+                <a href="/privacy/">Privacy policy</a>
+                <a href="/terms/">Terms</a>
+              </div>
+            </div>
           </div>
         </section>
       </main>
@@ -370,7 +338,20 @@ function ProductPreview({ activePreview, setActivePreview }) {
       <div className="release-preview">
         <img src={active.src} alt={`Clipzy ${active.label} screen`} />
       </div>
-      <p className="authentic-label"><Check size={13} /> Captured from the release candidate</p>
+      <p className="authentic-label"><Check size={13} /> Captured from the live app</p>
+    </div>
+  );
+}
+
+function StoreBadges({ className = "" }) {
+  return (
+    <div className={`store-badges ${className}`.trim()} aria-label="Download Clipzy">
+      <a href={APP_STORE_URL} target="_blank" rel="noreferrer" aria-label="Download Clipzy on the App Store">
+        <img src="/email/apple-app-store-badge.png" alt="Download on the App Store" />
+      </a>
+      <a href={GOOGLE_PLAY_URL} target="_blank" rel="noreferrer" aria-label="Get Clipzy on Google Play">
+        <img src="/email/google-play-badge.png" alt="Get it on Google Play" />
+      </a>
     </div>
   );
 }
@@ -401,7 +382,7 @@ function PricingCard({ name, price, cadence, annual, description, features, feat
           {featured && <Sparkles size={16} aria-hidden="true" />}
           Clipzy {name}
         </p>
-        {featured && <span className="coming-soon">At launch</span>}
+        {featured && <span className="coming-soon">Available now</span>}
       </div>
       <div className="price">
         <strong>{price}</strong>
@@ -413,8 +394,8 @@ function PricingCard({ name, price, cadence, annual, description, features, feat
         <p className="annual-price annual-price-placeholder">No card required</p>
       )}
       <p className="pricing-description">{description}</p>
-      <a className={`button ${featured ? "button-primary" : "button-quiet"}`} href="#launch">
-        Get the launch alert <ArrowRight size={17} />
+      <a className={`button ${featured ? "button-primary" : "button-quiet"}`} href="#download">
+        Download Clipzy <Download size={17} />
       </a>
       <ul>
         {features.map((feature) => (
@@ -423,50 +404,4 @@ function PricingCard({ name, price, cadence, annual, description, features, feat
       </ul>
     </article>
   );
-}
-
-function LaunchForm({ email, setEmail, submitted, error, isSubmitting, onSubmit }) {
-  if (submitted) {
-    return (
-      <div className="success-message">
-        <span><Check /></span>
-        <div><strong>You’re on the launch list.</strong><p>We’ll email you when Clipzy hits the stores.</p></div>
-      </div>
-    );
-  }
-
-  return (
-    <form className="waitlist-form" onSubmit={onSubmit} noValidate>
-      <label htmlFor="email">Email address</label>
-      <div>
-        <input
-          id="email"
-          type="email"
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
-          placeholder="you@channel.com"
-          autoComplete="email"
-          disabled={isSubmitting}
-        />
-        <button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "Joining…" : "Get the launch alert"} <ArrowRight size={16} />
-        </button>
-      </div>
-      {error && <p className="form-error" role="alert">{error}</p>}
-      <small>No spam. Just launch news and occasional product updates.</small>
-    </form>
-  );
-}
-
-function getAttribution() {
-  const params = new URLSearchParams(window.location.search);
-  return {
-    utm_source: params.get("utm_source") || "",
-    utm_medium: params.get("utm_medium") || "",
-    utm_campaign: params.get("utm_campaign") || "",
-    utm_content: params.get("utm_content") || "",
-    utm_term: params.get("utm_term") || "",
-    referrer: document.referrer || "",
-    landingPath: `${window.location.pathname}${window.location.search}` || "/",
-  };
 }
