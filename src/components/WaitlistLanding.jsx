@@ -28,22 +28,38 @@ const previews = [
 const tour = [
   {
     number: "01",
+    kicker: "Connect",
+    title: "Sign in and your clips are there.",
+    body: "Clipzy pulls the clips your own channel owns, newest first, so you start with last night and work backwards. Nothing to upload, no links to paste.",
+    src: "/app/release/00-connect.png",
+    alt: "Clipzy sign-in screen offering Sign in with Twitch",
+  },
+  {
+    number: "02",
     kicker: "Review",
-    title: "Keep only what’s worth it.",
-    body: "One clip. One decision. Flick or tap to keep or archive, then undo if your thumb gets ahead of you.",
+    title: "One clip. One decision.",
+    body: "Flick or tap to keep or archive, then undo if your thumb gets ahead of you. The next clip is already loaded and playing.",
     src: "/app/release/02-keep.png",
     alt: "Clipzy review feed showing a Twitch clip with Keep and Archive actions",
   },
   {
-    number: "02",
+    number: "03",
     kicker: "Organize",
     title: "Find any clip in seconds.",
-    body: "Search your kept clips, sort by date or views, filter by export status, and group moments into collections.",
+    body: "Search your kept clips, sort by date or view count, and filter by what you have already exported.",
     src: "/app/release/03-library.png",
     alt: "Clipzy library with search, sorting, filters, and clip thumbnails",
   },
   {
-    number: "03",
+    number: "04",
+    kicker: "Download",
+    title: "Save it once to unlock editing.",
+    body: "Keepers start as cloud clips. One tap saves a clip to your device for offline playback and fast editing, and it stays there.",
+    src: "/app/release/07-download.png",
+    alt: "Clipzy clip details screen showing a cloud clip with a Download action",
+  },
+  {
+    number: "05",
     kicker: "Create",
     title: "Make horizontal footage work vertically.",
     body: "Trim the moment, reframe it for 9:16, and stack face-cam over gameplay without losing either half of the story.",
@@ -51,10 +67,10 @@ const tour = [
     alt: "Clipzy editor showing face-cam and gameplay in a stacked vertical layout",
   },
   {
-    number: "04",
+    number: "06",
     kicker: "Finish",
-    title: "Captions that actually land.",
-    body: "Generate captions from the clip’s audio, edit the words and timing, restyle them, and burn them into the export.",
+    title: "Caption it, then export.",
+    body: "Generate captions from the clip’s audio, fix the words and timing, restyle them, then burn them in and save the finished video to your camera roll.",
     src: "/app/release/05-captions.png",
     alt: "Clipzy editor with generated captions visible on the video and timeline",
   },
@@ -103,6 +119,7 @@ export default function WaitlistLanding() {
         </a>
         <nav aria-label="Primary navigation">
           <a href="#workflow">How it works</a>
+          <a href="#demo">Demo</a>
           <a href="#editor">Editor</a>
           <a href="#pro">Pricing</a>
           <a href="#faq">FAQ</a>
@@ -113,11 +130,12 @@ export default function WaitlistLanding() {
       <main id="top">
         <section className="hero shell">
           <div className="hero-copy">
-            <div className="eyebrow"><span /> Now on iPhone and Android</div>
-            <h1>Turn Twitch clips into <em>shorts worth posting.</em></h1>
+            <div className="eyebrow"><span /> Your own clips only · iPhone and Android</div>
+            <h1>Your Twitch backlog, <em>sorted in one sitting.</em></h1>
             <p className="hero-lede">
-              Clear your backlog one swipe at a time. Keep the moments that matter,
-              find any clip fast, and turn the best ones into captioned vertical video.
+              Clipzy deals your own Twitch clips one at a time, newest first. Flick
+              right to keep, left to archive, and undo when your thumb gets ahead of
+              you. Turn the keepers into captioned vertical video when you’re ready.
             </p>
             <StoreBadges className="hero-store-badges" />
             <div className="hero-links">
@@ -135,7 +153,7 @@ export default function WaitlistLanding() {
           <div className="hero-visual">
             <div className="orbit orbit-one" />
             <div className="orbit orbit-two" />
-            <ProductPreview activePreview={activePreview} setActivePreview={setActivePreview} />
+            <HeroDemo activePreview={activePreview} setActivePreview={setActivePreview} />
           </div>
         </section>
 
@@ -165,13 +183,40 @@ export default function WaitlistLanding() {
               <h2>From buried moment to finished short.</h2>
             </div>
             <p>
-              Clipzy is no longer just a faster way through your backlog. It’s the
-              mobile workflow from first review to a video ready for your camera roll.
+              Six steps, and you are in charge of every one. Clipzy does not decide
+              what is worth posting. It makes deciding fast, then hands you what you
+              need to finish the clips you chose.
             </p>
           </div>
 
           <div className="tour-grid">
             {tour.map((item) => <TourCard key={item.number} {...item} />)}
+          </div>
+        </section>
+
+        <section className="demo-section" id="demo">
+          <div className="shell demo-grid">
+            <div className="demo-copy">
+              <p className="kicker">See it work</p>
+              <h2>Watch the whole loop, start to finish.</h2>
+              <p className="demo-lede">
+                Clipzy does not hand you a finished video on its own, and it is not
+                trying to. You decide what is worth keeping. The app makes that fast,
+                then gives you the tools to finish the ones you chose.
+              </p>
+              <ul className="demo-beats">
+                <li><span>00:00</span> Search, sort, and filter a real library</li>
+                <li><span>00:22</span> Download a kept clip to unlock editing</li>
+                <li><span>00:37</span> Reframe it, then stack face-cam over gameplay</li>
+                <li><span>00:57</span> Generate captions and restyle them</li>
+              </ul>
+              <p className="demo-note">
+                Recorded on a phone, in the shipping build. No sped-up footage.
+              </p>
+            </div>
+            <div className="demo-player">
+              <DemoPlayer />
+            </div>
           </div>
         </section>
 
@@ -314,6 +359,64 @@ export default function WaitlistLanding() {
           <span>© {new Date().getFullYear()} Clipzy</span>
         </div>
       </footer>
+    </div>
+  );
+}
+
+function HeroDemo({ activePreview, setActivePreview }) {
+  const [videoFailed, setVideoFailed] = useState(false);
+
+  if (videoFailed) {
+    return <ProductPreview activePreview={activePreview} setActivePreview={setActivePreview} />;
+  }
+
+  return (
+    <div className="product-preview">
+      <div className="hero-video-frame">
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          poster="/demo/swipe-loop-poster.jpg"
+          aria-label="Swiping through Twitch clips in Clipzy, keeping one and archiving another"
+          onError={() => setVideoFailed(true)}
+        >
+          <source src="/demo/swipe-loop.webm" type="video/webm" />
+          <source src="/demo/swipe-loop.mp4" type="video/mp4" />
+        </video>
+      </div>
+      <p className="authentic-label"><Check size={13} /> Recorded in the live app</p>
+    </div>
+  );
+}
+
+function DemoPlayer() {
+  const [playing, setPlaying] = useState(false);
+
+  if (!playing) {
+    return (
+      <button className="demo-poster" onClick={() => setPlaying(true)} aria-label="Play the Clipzy walkthrough">
+        <img src="/demo/walkthrough-poster.jpg" alt="" />
+        <span className="demo-play"><Play size={26} aria-hidden="true" /></span>
+        <span className="demo-duration">1:13</span>
+      </button>
+    );
+  }
+
+  return (
+    <div className="demo-video-frame">
+      <video
+        controls
+        autoPlay
+        playsInline
+        preload="metadata"
+        poster="/demo/walkthrough-poster.jpg"
+        aria-label="Clipzy walkthrough: library, download, editor, and captions"
+      >
+        <source src="/demo/walkthrough.mp4" type="video/mp4" />
+      </video>
     </div>
   );
 }
