@@ -1,0 +1,53 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="manrope.css">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { width:1200px; height:630px; overflow:hidden; font-family:"Manrope",sans-serif;
+         background:#08070b; color:#f8f5ff; -webkit-font-smoothing:antialiased; }
+  .card { position:relative; width:1200px; height:630px; overflow:hidden; display:flex; }
+  .amb { position:absolute; border-radius:50%; pointer-events:none; }
+  .amb-p { width:900px; height:900px; top:-330px; right:-240px;
+           background:radial-gradient(circle, rgba(151,72,255,.30), transparent 62%); }
+  .amb-t { width:720px; height:720px; bottom:-380px; left:-260px;
+           background:radial-gradient(circle, rgba(78,226,207,.13), transparent 62%); }
+  .left { position:relative; z-index:2; width:700px; padding:56px 0 56px 66px;
+          display:flex; flex-direction:column; justify-content:center; }
+  .mark { display:flex; align-items:center; gap:13px; }
+  .mark img { width:46px; height:46px; object-fit:contain;
+              filter:drop-shadow(0 6px 16px rgba(139,92,246,.38)); }
+  .mark span { font-size:33px; font-weight:800; letter-spacing:-1px; }
+  .eyebrow { margin-top:46px; display:flex; align-items:center; gap:10px;
+             color:#4ee2cf; font-size:13px; font-weight:700; letter-spacing:2.3px; }
+  .eyebrow i { width:8px; height:8px; border-radius:50%; background:#4ee2cf;
+               box-shadow:0 0 14px #4ee2cf; }
+  h1 { margin-top:22px; font-size:66px; font-weight:800; line-height:.99; letter-spacing:-3.1px; }
+  h1 em { font-style:normal; color:transparent; background-clip:text; -webkit-background-clip:text;
+          background-image:linear-gradient(104deg,#f5eeff 2%,#a46dff 40%,#e447de 70%,#4ee2cf 108%); }
+  .sub { margin-top:26px; max-width:560px; color:#bdb7c8; font-family:"Manrope",sans-serif;
+         font-size:21px; font-weight:600; line-height:1.5; letter-spacing:-.2px; }
+  .chips { margin-top:42px; display:flex; gap:10px; }
+  .chip { padding:9px 15px; border:1px solid rgba(255,255,255,.13); border-radius:11px;
+          background:rgba(255,255,255,.04); color:#d6d0de;
+          font-size:13px; font-weight:700; letter-spacing:.4px; }
+  .right { position:relative; flex:1; }
+  .phone { position:absolute; overflow:hidden; background:#190d24;
+           border:1px solid #403a49; border-radius:32px;
+           box-shadow:0 46px 90px rgba(0,0,0,.66), 0 0 0 7px rgba(11,10,14,.96); }
+  .phone img { width:100%; display:block; }
+  .p-back { width:250px; top:104px; right:22px; transform:rotate(6.5deg); opacity:.55; }
+  .p-front { width:306px; top:48px; right:170px; }
+</style></head><body>
+<div class="card">
+  <div class="amb amb-p"></div><div class="amb amb-t"></div>
+  <div class="left">
+    <div class="mark"><img src="../../public/logo.png" alt=""><span>Clipzy</span></div>
+    <div class="eyebrow"><i></i>YOUR OWN TWITCH CLIPS</div>
+    <h1>Your Twitch backlog,<br><em>sorted in one sitting.</em></h1>
+    <p class="sub">Swipe to keep. Swipe to archive. Then finish only the clips worth posting.</p>
+    <div class="chips"><span class="chip">iPhone</span><span class="chip">Android</span><span class="chip">Free to start</span></div>
+  </div>
+  <div class="right">
+    <div class="phone p-back"><img src="assets/phone-back.png"></div>
+    <div class="phone p-front"><img src="assets/phone-front.png"></div>
+  </div>
+</div></body></html>
