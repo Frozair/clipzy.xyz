@@ -205,10 +205,12 @@ export default function WaitlistLanding() {
                 then gives you the tools to finish the ones you chose.
               </p>
               <ul className="demo-beats">
-                <li><span>00:00</span> Search, sort, and filter a real library</li>
-                <li><span>00:22</span> Download a kept clip to unlock editing</li>
-                <li><span>00:37</span> Reframe it, then stack face-cam over gameplay</li>
-                <li><span>00:57</span> Generate captions and restyle them</li>
+                <li><span>00:00</span> Sign in with Twitch and the clips load, newest first</li>
+                <li><span>00:06</span> Keep or archive, one clip at a time</li>
+                <li><span>00:16</span> Search, sort, and filter what you kept</li>
+                <li><span>00:38</span> Download a clip to unlock editing</li>
+                <li><span>00:55</span> Stack face-cam over gameplay</li>
+                <li><span>01:05</span> Generate captions and restyle them</li>
               </ul>
               <p className="demo-note">
                 Recorded on a phone, in the shipping build. No sped-up footage.
@@ -400,7 +402,7 @@ function DemoPlayer() {
       <button className="demo-poster" onClick={() => setPlaying(true)} aria-label="Play the Clipzy walkthrough">
         <img src="/demo/walkthrough-poster.jpg" alt="" />
         <span className="demo-play"><Play size={26} aria-hidden="true" /></span>
-        <span className="demo-duration">1:13</span>
+        <span className="demo-duration">1:22</span>
       </button>
     );
   }

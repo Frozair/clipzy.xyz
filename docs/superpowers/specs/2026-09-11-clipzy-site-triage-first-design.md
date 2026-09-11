@@ -62,8 +62,12 @@ All captured on device, silent, cropped to exclude the ad banner, with a faked
 clean status bar.
 
 - `public/demo/swipe-loop.mp4` / `.webm` — 9.8s hero loop, 470KB / 385KB
-- `public/demo/connect-twitch.mp4` / `.webm` — 5.5s, sign-in to loaded deck
-- `public/demo/walkthrough.mp4` — 73s, silent, awaiting voiceover
+- `public/demo/walkthrough.mp4` — 1:22, silent, awaiting voiceover
+
+The walkthrough must open on triage, not on the library. A first cut started
+at the library, which put the choosing step, the thing the whole
+repositioning is about, entirely off screen. It now runs: sign in, swipe to
+keep and archive, organize, download, edit, caption.
 
 ## Out of scope
 
