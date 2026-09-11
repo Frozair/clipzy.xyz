@@ -207,7 +207,7 @@ export default function WaitlistLanding() {
               <ul className="demo-beats">
                 <li><span>00:00</span> Sign in with Twitch and the clips load, newest first</li>
                 <li><span>00:06</span> Keep or archive, one clip at a time</li>
-                <li><span>00:16</span> Search, sort, and filter what you kept</li>
+                <li><span>00:17</span> Search, sort, and filter what you kept</li>
                 <li><span>00:38</span> Download a clip to unlock editing</li>
                 <li><span>00:55</span> Stack face-cam over gameplay</li>
                 <li><span>01:05</span> Generate captions and restyle them</li>
@@ -402,7 +402,7 @@ function DemoPlayer() {
       <button className="demo-poster" onClick={() => setPlaying(true)} aria-label="Play the Clipzy walkthrough">
         <img src="/demo/walkthrough-poster.jpg" alt="" />
         <span className="demo-play"><Play size={26} aria-hidden="true" /></span>
-        <span className="demo-duration">1:22</span>
+        <span className="demo-duration">1:23</span>
       </button>
     );
   }
