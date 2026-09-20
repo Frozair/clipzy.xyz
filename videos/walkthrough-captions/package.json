@@ -1,0 +1,12 @@
+{
+  "name": "walkthrough-captions",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npx --yes hyperframes@0.8.53 preview",
+    "check": "npx --yes hyperframes@0.8.53 check",
+    "render": "npx --yes hyperframes@0.8.53 render",
+    "publish": "npx --yes hyperframes@0.8.53 publish",
+    "render:web": "npx --yes hyperframes@0.8.53 render --output out/walkthrough-captioned.mp4 --crf 27"
+  }
+}

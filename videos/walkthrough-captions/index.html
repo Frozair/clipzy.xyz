@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <link rel="stylesheet" href="assets/manrope.css" />
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; overflow: hidden; background: #08070b; }
+
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        font-family: "Manrope", ui-sans-serif, system-ui, sans-serif;
+        background: #08070b;
+      }
+
+      /* the walkthrough keeps the top of the frame, untouched and unobstructed */
+      #footage {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 86.0%;
+        display: block;
+      }
+
+      /* captions get their own plate below the phone screen, so no app UI is
+         ever covered — the second half of the video is all bottom controls */
+      #plate {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 14.0%;
+        background: #08070b;
+        border-top: 2px solid rgba(164, 109, 255, 0.45);
+      }
+      .cap {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 14.0%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 30px;
+        opacity: 0;
+      }
+      .cap span {
+        color: #f6f2ff;
+        font-size: 31px;
+        font-weight: 700;
+        line-height: 1.24;
+        letter-spacing: -0.6px;
+        text-align: center;
+        text-wrap: balance;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="105.1"
+      data-width="540"
+      data-height="1400"
+    >
+      <div id="plate"></div>
+
+      <video
+        id="footage"
+        class="clip"
+        data-start="0"
+        data-duration="105.1"
+        data-track-index="0"
+        src="assets/walkthrough-v2.mp4"
+        muted
+        playsinline
+      ></video>
+
+      <!-- one clip per beat; timings are measured against the cut, not guessed -->
+      <div id="cap-signin" class="clip cap" data-start="0.4"  data-duration="2.6" data-track-index="1"><span>Sign in with Twitch</span></div>
+      <div id="cap-clips-load" class="clip cap" data-start="5.2"  data-duration="3.4" data-track-index="1"><span>Your own clips, newest first</span></div>
+      <div id="cap-keep-archive" class="clip cap" data-start="12.4" data-duration="4.2" data-track-index="1"><span>Keep it, or archive it</span></div>
+      <div id="cap-library" class="clip cap" data-start="18.3" data-duration="2.5" data-track-index="1"><span>Everything you keep lands here</span></div>
+      <div id="cap-download" class="clip cap" data-start="21.6" data-duration="4.6" data-track-index="1"><span>Download once to unlock editing</span></div>
+      <div id="cap-open-editor" class="clip cap" data-start="29.0" data-duration="3.0" data-track-index="1"><span>Open the editor</span></div>
+      <div id="cap-format" class="clip cap" data-start="33.4" data-duration="3.0" data-track-index="1"><span>Pick the output format</span></div>
+      <div id="cap-stacked" class="clip cap" data-start="38.2" data-duration="3.2" data-track-index="1"><span>Stack face-cam over gameplay</span></div>
+      <div id="cap-reframe" class="clip cap" data-start="44.0" data-duration="6.4" data-track-index="1"><span>Reframe until you're centred</span></div>
+      <div id="cap-safe-zones" class="clip cap" data-start="57.4" data-duration="5.2" data-track-index="1"><span>Check the TikTok, Shorts and Reels safe zones</span></div>
+      <div id="cap-trim" class="clip cap" data-start="64.4" data-duration="3.2" data-track-index="1"><span>Trim the moment</span></div>
+      <div id="cap-captions-generate" class="clip cap" data-start="70.2" data-duration="4.2" data-track-index="1"><span>Captions from the clip's own audio</span></div>
+      <div id="cap-captions-style" class="clip cap" data-start="80.0" data-duration="5.0" data-track-index="1"><span>Restyle them</span></div>
+      <div id="cap-export" class="clip cap" data-start="95.8" data-duration="5.4" data-track-index="1"><span>Export, ready to post</span></div>
+    </div>
+
+    <script>
+      const tl = gsap.timeline({ paused: true });
+
+      // each caption fades up as its clip opens and fades out just before it closes,
+      // authored at global time so the single root timeline stays seek-safe
+      document.querySelectorAll(".cap").forEach((cap) => {
+        const start = parseFloat(cap.dataset.start);
+        const dur = parseFloat(cap.dataset.duration);
+        const IN = 0.34;
+        const OUT = 0.3;
+        tl.fromTo(
+          cap,
+          { opacity: 0, y: 14 },
+          { opacity: 1, y: 0, duration: IN, ease: "power2.out" },
+          start,
+        );
+        tl.to(cap, { opacity: 0, y: -8, duration: OUT, ease: "power2.in" }, start + dur - OUT);
+      });
+
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>
