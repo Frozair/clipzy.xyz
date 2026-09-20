@@ -1,3 +1,6 @@
+> Superseded. This was written for the 1:23 cut. The current walkthrough is 1:45
+> and its script is in `walkthrough-voiceover-script-v2.md`.
+
 # Clipzy walkthrough — voiceover script
 
 For `public/demo/walkthrough.mp4` (1:23, silent).
