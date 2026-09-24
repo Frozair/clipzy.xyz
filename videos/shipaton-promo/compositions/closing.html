@@ -1,0 +1,66 @@
+<template>
+  <div id="closing" data-composition-id="closing" data-start="0" data-duration="8.0" data-width="1920" data-height="1080">
+    <img id="closing-logo" src="assets/logo.png" alt="Clipzy" />
+    <h2 id="closing-headline">Your best Twitch moments, <em>sorted</em>.</h2>
+    <p id="closing-badges">
+      <img src="assets/apple-app-store-badge.png" alt="Download on the App Store" />
+      <img src="assets/google-play-badge.png" alt="Get it on Google Play" />
+    </p>
+    <p id="closing-url">clipzy.xyz</p>
+  </div>
+  <style>
+      #closing {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 0 260px;
+      }
+      #closing-logo { width: 118px; height: 118px; display: block; }
+      #closing-headline {
+        margin: 46px 0 0;
+        color: #f8f5ff;
+        font-size: 96px;
+        font-weight: 800;
+        letter-spacing: -0.04em;
+        line-height: 1.06;
+      }
+      #closing-headline em {
+        font-style: normal;
+        color: transparent;
+        background: linear-gradient(112deg, #f5eeff 2%, #a46dff 38%, #e447de 68%, #4ee2cf 108%);
+        -webkit-background-clip: text;
+        background-clip: text;
+      }
+      #closing-badges {
+        margin: 54px 0 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 30px;
+      }
+      #closing-badges img { display: block; height: 76px; width: auto; }
+      #closing-url {
+        margin: 44px 0 0;
+        color: #aaa5b7;
+        letter-spacing: 3px;
+        font-size: 25px;
+        font-weight: 600;
+      }
+  </style>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#closing-logo", { opacity: 0, y: 26, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: "power3.out" }, 0);
+      tl.fromTo("#closing-headline", { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 0.18);
+      tl.fromTo("#closing-badges", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 0.38);
+      tl.fromTo("#closing-url", { opacity: 0 }, { opacity: 1, duration: 0.7, ease: "power2.out" }, 0.6);
+      tl.to(["#closing-logo", "#closing-headline", "#closing-badges", "#closing-url"], { opacity: 0, duration: 0.5, ease: "power2.in" }, 7.4);
+      window.__timelines["closing"] = tl;
+    })();
+  </script>
+</template>

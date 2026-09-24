@@ -1,0 +1,64 @@
+<template>
+  <div id="b7" data-composition-id="b7" data-start="0" data-duration="9.5" data-width="1920" data-height="1080">
+    <p id="b7-eyebrow" class="eyebrow"><span></span>Caption</p>
+    <h2 id="b7-headline" class="headline">Captions from the clip’s own audio.</h2>
+    <p id="b7-sub" class="sub">Generated on the phone, then restyled and burned in.</p>
+  </div>
+  <style>
+      #b7 {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        padding: 0 162px 0 712px;
+      }
+      #b7 .eyebrow {
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: #4ee2cf;
+        text-transform: uppercase;
+        letter-spacing: 5px;
+        font-size: 21px;
+        font-weight: 700;
+      }
+      #b7 .eyebrow span {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: #4ee2cf;
+        box-shadow: 0 0 16px #4ee2cf;
+      }
+      #b7 .headline {
+        margin: 26px 0 0;
+        max-width: 1046px;
+        color: #f8f5ff;
+        font-size: 86px;
+        font-weight: 800;
+        letter-spacing: -0.037em;
+        line-height: 1.06;
+      }
+      #b7 .sub {
+        margin: 30px 0 0;
+        max-width: 830px;
+        color: #aaa5b7;
+        font-size: 31px;
+        font-weight: 500;
+        line-height: 1.52;
+      }
+  </style>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#b7-eyebrow", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.55, ease: "power2.out" }, 0);
+      tl.fromTo("#b7-headline", { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 0.1);
+      tl.fromTo("#b7-sub", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 0.2);
+      tl.to(["#b7-eyebrow", "#b7-headline", "#b7-sub"], { opacity: 0, y: -14, duration: 0.42, ease: "power2.in" }, 9.05);
+      window.__timelines["b7"] = tl;
+    })();
+  </script>
+</template>
